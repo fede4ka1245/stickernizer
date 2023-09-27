@@ -1,0 +1,11 @@
+version: '3.8'
+services:
+  client:
+    container_name: client_frontend
+    build:
+      context: .
+    environment:
+      PORT: 3030
+    ports:
+      - '3030:3030'
+    restart: always
