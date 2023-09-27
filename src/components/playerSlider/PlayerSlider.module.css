@@ -1,0 +1,13 @@
+.startButton {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.startButton:active {
+    opacity: 0.8;
+}

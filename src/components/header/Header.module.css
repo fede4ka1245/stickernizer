@@ -1,0 +1,9 @@
+.main {
+    position: sticky;
+    width: 100vw;
+    height: var(--header-height);
+    background: var(--bg-color);
+
+    display: flex;
+    align-items: center;
+}
