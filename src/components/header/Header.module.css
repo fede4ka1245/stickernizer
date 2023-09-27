@@ -3,6 +3,7 @@
     width: 100vw;
     height: var(--header-height);
     background: var(--bg-color);
+    border-bottom: var(--element-border);
 
     display: flex;
     align-items: center;

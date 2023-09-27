@@ -104,6 +104,7 @@ const StickerEditor = () => {
         alignItems={'center'}
         borderRadius={'var(--border-radius-lg)'}
         backgroundColor={'var(--bg-color)'}
+        border={'var(--element-border)'}
       >
         <canvas
           ref={canvasRef}
@@ -111,6 +112,7 @@ const StickerEditor = () => {
         />
       </Grid>
       <Grid
+        border={'var(--element-border)'}
         overflow={'hidden'}
         ml={'var(--space-sm)'}
         mr={'var(--space-sm)'}
@@ -134,6 +136,7 @@ const StickerEditor = () => {
         </Tabs>
       </Grid>
       <Grid
+        border={'var(--element-border)'}
         backgroundColor={'var(--bg-color)'}
         ml={'var(--space-sm)'}
         mr={'var(--space-sm)'}

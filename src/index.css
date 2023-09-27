@@ -27,5 +27,7 @@ body, body {
     --border-radius-md: 10px;
     --border-radius-lg: 20px;
 
+    --element-border: 1px solid var(--hint-color);
+
     --header-height: 60px;
 }
