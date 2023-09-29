@@ -8,6 +8,9 @@ import Button from "../../ui/button/Button";
 import Player from "./logic/Player";
 import {throttle} from 'lodash';
 import TextLayer from "./logic/TextLayer";
+import ButtonBack from "../../ui/buttonBack/ButtonBack";
+import {useNavigate} from "react-router-dom";
+import {routes} from "../../routes";
 
 const StickerEditor = () => {
   const playerRef = useRef(null);
@@ -17,6 +20,7 @@ const StickerEditor = () => {
     progress: 0,
     isPaused: true,
   });
+  const navigate = useNavigate();
 
   const setProgress = useCallback((progress) => {
     setState((state) => ({ ...state, progress }));
@@ -33,6 +37,12 @@ const StickerEditor = () => {
 
   const handleChange = useCallback((event, newValue) => {
     setValue(newValue);
+  }, []);
+
+  const onButtonBackClick = useCallback(() => {
+    if (window.confirm("Your current progress won't be saved, confirm you want to exit.")) {
+      navigate(routes.main);
+    }
   }, []);
 
   useEffect(() => {
@@ -98,6 +108,39 @@ const StickerEditor = () => {
   return (
     <Grid>
       <Grid
+        display={'flex'}
+        alignItems={'center'}
+        ml={'var(--space-sm)'}
+        mr={'var(--space-sm)'}
+        mt={'var(--space-md)'}
+        mb={'var(--space-md)'}
+      >
+        <Grid mr={'var(--space-sm)'}>
+          <ButtonBack onClick={onButtonBackClick} />
+        </Grid>
+        <Grid
+          border={'var(--element-border)'}
+          overflow={'hidden'}
+          borderRadius={'var(--border-radius-lg)'}
+          backgroundColor={'var(--bg-color)'}
+        >
+          <Tabs
+            value={value}
+            onChange={handleChange}
+            aria-label="basic tabs example"
+            variant="scrollable"
+            scrollButtons
+            allowScrollButtonsMobile
+          >
+            <Tab label="Item One" />
+            <Tab label="Item Two" />
+            <Tab label="Item Three" />
+            <Tab label="Item Four" />
+            <Tab label="Item Five" />
+          </Tabs>
+        </Grid>
+      </Grid>
+      <Grid
         m={'var(--space-sm)'}
         display={'flex'}
         justifyContent={'center'}
@@ -110,30 +153,6 @@ const StickerEditor = () => {
           ref={canvasRef}
           className={styles.canvas}
         />
-      </Grid>
-      <Grid
-        border={'var(--element-border)'}
-        overflow={'hidden'}
-        ml={'var(--space-sm)'}
-        mr={'var(--space-sm)'}
-        mb={'var(--space-md)'}
-        borderRadius={'var(--border-radius-lg)'}
-        backgroundColor={'var(--bg-color)'}
-      >
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          aria-label="basic tabs example"
-          variant="scrollable"
-          scrollButtons
-          allowScrollButtonsMobile
-        >
-          <Tab label="Item One" />
-          <Tab label="Item Two" />
-          <Tab label="Item Three" />
-          <Tab label="Item Four" />
-          <Tab label="Item Five" />
-        </Tabs>
       </Grid>
       <Grid
         border={'var(--element-border)'}
