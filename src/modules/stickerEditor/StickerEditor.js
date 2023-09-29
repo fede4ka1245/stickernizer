@@ -105,6 +105,10 @@ const StickerEditor = () => {
     }
   }, [state.isPaused]);
 
+  const onDownload = useCallback(() => {
+    playerRef.current.download();
+  }, []);
+
   return (
     <Grid>
       <Grid
@@ -179,6 +183,7 @@ const StickerEditor = () => {
           fullWidth
           size="large"
           variant="contained"
+          onClick={onDownload}
         >
           Download video
         </Button>

@@ -46,6 +46,9 @@ export default class Player {
     this.videoTiming = time - this.timeStart;
 
     if (this.videoTiming >= this.endVideoTiming) {
+      if (this.end) {
+        this.end();
+      }
       this.goTo(0);
     }
 
@@ -63,6 +66,40 @@ export default class Player {
       });
     }
     window.requestAnimationFrame(this.update.bind(this));
+  }
+
+  onEnd(func) {
+    this.end = func;
+  }
+
+  download() {
+    const chunks = [];
+    const stream = this.canvas.captureStream();
+
+    const recorder = new MediaRecorder(stream);
+    recorder.ondataavailable = (event) => chunks.push(event.data);
+    recorder.onstop = () => {
+      const blob = new Blob(chunks, {
+        type: 'video/webm;codecs=vp9',
+      });
+
+      const a = document.createElement('a');
+      a.id = 'download';
+      a.download = (new Date()).getTime() + '.' + 'webm';
+      a.textContent = 'download';
+      a.href = URL.createObjectURL(blob);
+      a.click();
+    };
+
+    this.stop();
+    this.goTo(0);
+    this.play();
+    recorder.start();
+    this.onEnd(function() {
+      recorder.stop();
+      this.stop();
+      this.goTo(0);
+    });
   }
 
   addLayer(layer) {
