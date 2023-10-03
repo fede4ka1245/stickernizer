@@ -1,5 +1,5 @@
 import React from 'react';
-import StickerEditor from "../../modules/stickerEditor/StickerEditor";
+import {StickerEditor} from "../../modules/stickerEditor";
 
 const StickerEditorPage = () => {
   return (

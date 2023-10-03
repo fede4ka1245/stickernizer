@@ -5,7 +5,7 @@ export default class Layer {
     width,
     height,
     timingStart,
-    timingEnd
+    timingEnd,
   }) {
     this.timingStart = timingStart;
     this.timingEnd = timingEnd;
@@ -13,6 +13,7 @@ export default class Layer {
     this.height = height;
     this.posX = posX;
     this.posY = posY;
+    this.id = String(Date.now() + posX + posY + timingEnd + timingStart + width + height);
   }
 
   goTo(canvas, videoTiming) {
@@ -26,6 +27,7 @@ export default class Layer {
     const context = newCanvas.getContext('2d');
 
     if (this.timingEnd >= videoTiming && this.timingStart <= videoTiming) {
+      context.clearRect(0, 0, canvas.width, canvas.height);
       context.rect(this.posX, this.posY, this.width, this.height);
       context.fill();
 

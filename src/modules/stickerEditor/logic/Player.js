@@ -99,11 +99,12 @@ export default class Player {
       recorder.stop();
       this.stop();
       this.goTo(0);
+      this.onEnd(null);
     });
   }
 
   addLayer(layer) {
-    this.layers = [layer, ...this.layers];
+    this.layers = [...this.layers, layer];
     this.goTo(this.videoTiming);
   }
 
@@ -116,5 +117,18 @@ export default class Player {
 
   removeListener(id) {
     delete this.listeners[id];
+  }
+
+  getLayers() {
+    return this.layers;
+  }
+
+  moveLayerToNewOrder(layerOrder, newLayerOrder) {
+    const result = Array.from(this.layers);
+    const [removed] = result.splice(layerOrder, 1);
+    result.splice(newLayerOrder, 0, removed);
+
+    this.layers = result;
+    return this.layers;
   }
 }
