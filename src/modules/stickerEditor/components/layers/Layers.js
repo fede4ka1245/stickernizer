@@ -64,7 +64,7 @@ const Layers = () => {
           isSmall={true}
         />
       </Grid>
-      <Grid flex={'1 1 auto'} overflow={'scroll'} display={'flex'} flexDirection={'column'} height={0}>
+      <Grid flex={'1 1 auto'} sx={{ overflowY: 'scroll' }} display={'flex'} flexDirection={'column'} height={0}>
         <Grid>
           <DragDropContext onDragEnd={onDragEnd}>
             <Droppable droppableId="droppable-layers">

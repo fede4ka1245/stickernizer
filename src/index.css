@@ -31,3 +31,21 @@ body, body {
 
     --header-height: 60px;
 }
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--hint-color) auto;
+}
+
+/* Works on Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+    width: 4px;
+}
+
+*::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: var(--hint-color);
+}
