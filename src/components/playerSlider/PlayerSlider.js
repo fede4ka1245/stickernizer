@@ -1,6 +1,6 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback} from 'react';
 import Slider from "../../ui/slider/Slider";
-import {Fab, Grid} from "@mui/material";
+import {Grid} from "@mui/material";
 import styles from './PlayerSlider.module.css';
 import PauseRoundedIcon from '@mui/icons-material/PauseRounded';
 import PlayArrowRoundedIcon from '@mui/icons-material/PlayArrowRounded';

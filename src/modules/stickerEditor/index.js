@@ -1,3 +1,3 @@
-import Root from "./components/Root";
+import Root from "./components/stickerEditor/Root";
 
 export { Root as StickerEditor };

@@ -104,7 +104,7 @@ export default class Player {
   }
 
   addLayer(layer) {
-    this.layers = [...this.layers, layer];
+    this.layers = [layer, ...this.layers].reverse();
     this.goTo(this.videoTiming);
   }
 
@@ -120,7 +120,7 @@ export default class Player {
   }
 
   getLayers() {
-    return this.layers;
+    return this.layers.reverse();
   }
 
   moveLayerToNewOrder(layerOrder, newLayerOrder) {

@@ -1,5 +1,5 @@
 import {useEffect} from "react";
-import TextLayer from "../logic/TextLayer";
+import TextLayer from "../shared/editor/TextLayer";
 import {addLayer} from "../store/slices/main";
 import {useDispatch, useSelector} from "react-redux";
 

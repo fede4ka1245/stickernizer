@@ -1,0 +1,14 @@
+.canvas {
+    width: 200px;
+    height: 200px;
+    border: 1px solid var(--primary-color);
+    background:transparent;
+}
+
+.smallCanvas {
+    width: 92px;
+    height: 92px;
+    border: 1px solid var(--primary-color);
+    background:transparent;
+    margin: 23px;
+}

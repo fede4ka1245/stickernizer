@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import {tabs} from "../../consts/tabs";
-import Player from "../../logic/Player";
+import Player from "../../shared/editor/Player";
 import {throttle} from "lodash";
 
 const initialState = {
@@ -26,22 +26,19 @@ export const mainSlice = createSlice({
       } else {
         state.player.canvas = action.payload.canvas;
         state.isPaused = true;
+        state.player.goTo(state.player.videoTiming);
       }
 
       if (action.payload.onProgressChange) {
-        state.player.addListener(throttle(action.payload.onProgressChange, 180));
+        state.player.addListener(throttle(action.payload.onProgressChange, 200));
       }
     },
     setProgress: (state, action) => {
-      if (state.isInit) {
-        state.progress = action.payload;
-      }
+      state.progress = action.payload;
     },
     changeTiming: (state, action) => {
-      if (state.isInit) {
-        state.player.goTo(action.payload * state.player.endVideoTiming / 100);
-        state.progress = action.payload;
-      }
+      state.player.goTo(action.payload * state.player.endVideoTiming / 100);
+      state.progress = action.payload;
     },
     toggleIsPaused: (state, action) => {
       state.isPaused = action.payload;

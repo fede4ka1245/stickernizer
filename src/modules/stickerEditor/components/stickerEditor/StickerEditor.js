@@ -33,42 +33,47 @@ const StickerEditor = () => {
   useInitialLayers();
 
   return (
-    <Grid>
-      <Grid
-        display={'flex'}
-        alignItems={'center'}
-        ml={'var(--space-sm)'}
-        mr={'var(--space-sm)'}
-        mt={'var(--space-md)'}
-        mb={'var(--space-md)'}
-      >
-        <Grid mr={'var(--space-sm)'}>
-          <ButtonBack onClick={onButtonBackClick} />
-        </Grid>
+    <Grid display={'flex'} flexDirection={'column'} height={'var(--tg-viewport-stable-height)'}>
+      {(tab.value === tabs.main.value || tab.value === tabs.layers.value) && <>
         <Grid
-          border={'var(--element-border)'}
-          overflow={'hidden'}
-          borderRadius={'var(--border-radius-lg)'}
-          backgroundColor={'var(--bg-color)'}
+          position={'sticky'}
+          left={0}
+          top={0}
+          display={'flex'}
+          alignItems={'center'}
+          ml={'var(--space-sm)'}
+          mr={'var(--space-sm)'}
+          pt={'var(--space-md)'}
+          mb={'var(--space-md)'}
         >
-          <Tabs
-            value={tab.value}
-            onChange={onTabChange}
-            aria-label="sticker-editor-tabs"
-            variant="scrollable"
-            scrollButtons
-            allowScrollButtonsMobile
+          <Grid mr={'var(--space-sm)'}>
+            <ButtonBack onClick={onButtonBackClick} />
+          </Grid>
+          <Grid
+            border={'var(--element-border)'}
+            overflow={'hidden'}
+            borderRadius={'var(--border-radius-lg)'}
+            backgroundColor={'var(--bg-color)'}
           >
-            {pageTabs.map(({ label, value }) => (
-              <Tab key={value} label={label} value={value} />
-            ))}
-          </Tabs>
+            <Tabs
+              value={tab.value}
+              onChange={onTabChange}
+              aria-label="sticker-editor-tabs"
+              variant="scrollable"
+              scrollButtons
+              allowScrollButtonsMobile
+            >
+              {pageTabs.map(({ label, value }) => (
+                <Tab key={value} label={label} value={value} />
+              ))}
+            </Tabs>
+          </Grid>
         </Grid>
-      </Grid>
-      <Grid m={'var(--space-sm)'}>
-        {tab.value === tabs.main.value && <Main />}
-        {tab.value === tabs.layers.value && <Layers />}
-      </Grid>
+        <Grid m={'var(--space-sm)'} display={'inherit'} flexDirection={'inherit'} flex={1}>
+          {tab.value === tabs.main.value && <Main />}
+          {tab.value === tabs.layers.value && <Layers />}
+        </Grid>
+      </>}
     </Grid>
   );
 };
