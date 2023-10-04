@@ -35,7 +35,7 @@ const Layer = ({ layer }) => {
               <MoreVertRoundedIcon
                 fontSize={'medium'}
                 sx={{
-                  color: 'var(--hint-color)'
+                  color: 'var(--primary-color)'
                 }}
               />
             </Grid>
@@ -52,7 +52,7 @@ const Layer = ({ layer }) => {
               <ReorderRoundedIcon
                 fontSize={'medium'}
                 sx={{
-                  color: 'var(--hint-color)'
+                  color: 'var(--primary-color)'
                 }}
               />
             </Grid>

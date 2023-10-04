@@ -88,6 +88,7 @@ const Layers = () => {
               )}
             </Droppable>
           </DragDropContext>
+          <input type="file" className="d-none" id="addVideosInput" accept=" video/*" />
         </Grid>
       </Grid>
       <Grid pt={'var(--space-sm)'} pb={'var(--space-sm)'}>
