@@ -7,6 +7,10 @@
     opacity: 0.4;
 }
 
+.dragging {
+    opacity: 0.8;
+}
+
 @media (pointer: fine){
     .tappable:hover {
         cursor: pointer;

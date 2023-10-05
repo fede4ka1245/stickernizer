@@ -68,27 +68,29 @@ const Layers = () => {
         <Grid>
           <DragDropContext onDragEnd={onDragEnd}>
             <Droppable droppableId="droppable-layers">
-              {provided => (
+              {(provided) => (
                 <div ref={provided.innerRef} {...provided.droppableProps}>
                   {layers.map((layer, index) => (
                     <Draggable key={layer.id} draggableId={layer.id} index={index}>
-                      {(provided) => (
+                      {(provided, snapshot) => (
                         <Grid
                           mb={'var(--space-sm)'}
                           ref={provided.innerRef}
-                          {...provided.draggableProps}
-                          {...provided.dragHandleProps}
                         >
-                          <Layer layer={layer} />
+                          <Layer
+                            layer={layer}
+                            provided={provided}
+                            snapshot={snapshot}
+                          />
                         </Grid>
                       )}
                     </Draggable>
                   ))}
+                  {provided.placeholder}
                 </div>
               )}
             </Droppable>
           </DragDropContext>
-          <input type="file" className="d-none" id="addVideosInput" accept=" video/*" />
         </Grid>
       </Grid>
       <Grid pt={'var(--space-sm)'} pb={'var(--space-sm)'}>
