@@ -15,14 +15,15 @@ const PlayerSlider = ({ isPaused, setIsPaused, progress, setProgress }) => {
   }, []);
 
   return (
-    <Grid display={'flex'} alignItems={'center'} flexDirection={'column'}>
-      <Grid mb={'var(--space-sm)'}>
+    <Grid display={'flex'} alignItems={'center'} flexDirection={'column'} position={'relative'}>
+      <Grid position={'absolute'} left={0} top={-50} ml={'var(--space-sm)'} mb={'var(--space-md)'}>
         <div className={styles.startButton} onClick={togglePaused}>
-          {!isPaused && <PauseRoundedIcon sx={{ width: '40px', height: '40px', color: 'var(--bg-color)' }} />}
-          {isPaused && <PlayArrowRoundedIcon sx={{ width: '40px', height: '40px', color: 'var(--bg-color)' }} />}
+          {!isPaused && <PauseRoundedIcon sx={{ width: '23px', height: '23px', color: 'var(--bg-color)' }} />}
+          {isPaused && <PlayArrowRoundedIcon sx={{ width: '23px', height: '23px', color: 'var(--bg-color)' }} />}
         </div>
       </Grid>
       <Slider
+        size={'small'}
         value={progress}
         defaultValue={0}
         onChange={onChange}

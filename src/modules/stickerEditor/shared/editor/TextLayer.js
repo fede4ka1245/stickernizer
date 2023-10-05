@@ -4,7 +4,7 @@ export default class TextLayer extends Layer {
   constructor(params) {
     super(params);
     this.color = params.color || "#ffffff";
-    this.fontSize = params.fontSize || "40px";
+    this.fontSize = params.fontSize || "90px";
     this.text = params.text || "Your text";
   }
 

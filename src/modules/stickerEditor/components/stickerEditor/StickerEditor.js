@@ -69,7 +69,7 @@ const StickerEditor = () => {
             </Tabs>
           </Grid>
         </Grid>
-        <Grid m={'var(--space-sm)'} display={'inherit'} flexDirection={'inherit'} flex={1}>
+        <Grid display={'inherit'} flexDirection={'inherit'} flex={1}>
           {tab.value === tabs.main.value && <Main />}
           {tab.value === tabs.layers.value && <Layers />}
         </Grid>

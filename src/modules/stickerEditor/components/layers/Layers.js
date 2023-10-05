@@ -54,7 +54,7 @@ const Layers = () => {
 
   return (
     <>
-      <Grid mb={'var(--space-sm)'}>
+      <Grid>
         <Player
           initStickerEditor={initStickerEditor}
           progress={progress}
@@ -64,7 +64,7 @@ const Layers = () => {
           isSmall={true}
         />
       </Grid>
-      <Grid flex={'1 1 auto'} sx={{ overflowY: 'scroll' }} display={'flex'} flexDirection={'column'} height={0}>
+      <Grid flex={'1 1 auto'} sx={{ overflowY: 'scroll' }} display={'flex'} flexDirection={'column'} height={0} p={'var(--space-sm)'}>
         <Grid>
           <DragDropContext onDragEnd={onDragEnd}>
             <Droppable droppableId="droppable-layers">
@@ -93,7 +93,7 @@ const Layers = () => {
           </DragDropContext>
         </Grid>
       </Grid>
-      <Grid pt={'var(--space-sm)'} pb={'var(--space-sm)'}>
+      <Grid p={'var(--space-sm)'}>
         <Button
           fullWidth
           size="large"

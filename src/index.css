@@ -4,6 +4,7 @@
 }
 
 body, body {
+    overflow: hidden;
     background: var(--secondary-bg-color);
 }
 

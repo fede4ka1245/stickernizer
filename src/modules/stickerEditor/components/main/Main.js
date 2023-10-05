@@ -53,7 +53,7 @@ const Main = () => {
         onProgressChange={onProgressChange}
         setIsPaused={setIsPaused}
       />
-      <Grid mt={'auto'} pt={'var(--space-sm)'} pb={'var(--space-sm)'}>
+      <Grid mt={'auto'} p={'var(--space-sm)'} >
         <Button
           fullWidth
           size="large"

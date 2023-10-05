@@ -1,9 +1,11 @@
+import {playerConsts} from "../../consts/playerConsts";
+
 export default class Player {
   constructor(canvas) {
     this.canvas = canvas;
     this.playing = false;
     this.videoTiming = 0;
-    this.endVideoTiming = 3000;
+    this.endVideoTiming = playerConsts.maxTiming;
     this.listeners = {};
     this.layers = [];
     window.requestAnimationFrame(this.update.bind(this));
@@ -76,16 +78,18 @@ export default class Player {
     const chunks = [];
     const stream = this.canvas.captureStream();
 
-    const recorder = new MediaRecorder(stream);
+    const recorder = new MediaRecorder(stream, {
+      mimeType: 'video/webm;codecs=vp9'
+    });
     recorder.ondataavailable = (event) => chunks.push(event.data);
     recorder.onstop = () => {
       const blob = new Blob(chunks, {
-        type: 'video/webm;codecs=vp9',
+        type: 'video/webm;codecs="vp9"',
       });
 
       const a = document.createElement('a');
       a.id = 'download';
-      a.download = (new Date()).getTime() + '.' + 'webm';
+      a.download = (new Date()).getTime();
       a.textContent = 'download';
       a.href = URL.createObjectURL(blob);
       a.click();
@@ -127,6 +131,9 @@ export default class Player {
     const result = Array.from(this.layers);
     const [removed] = result.splice(layerOrder, 1);
     result.splice(newLayerOrder, 0, removed);
+    setTimeout(() => {
+      this.goTo(this.videoTiming);
+    }, 100);
 
     this.layers = result;
     return this.layers;

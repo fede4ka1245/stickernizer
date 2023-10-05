@@ -11,7 +11,7 @@ export const useInitialLayers = () => {
     if (isInit && !layers?.length) {
       const layer1 = new TextLayer({
         posX: 10,
-        posY: 50,
+        posY: 160,
         width: 40,
         height: 80,
         timingStart: 0,
@@ -21,7 +21,7 @@ export const useInitialLayers = () => {
 
       const layer2 = new TextLayer({
         posX: 10,
-        posY: 90,
+        posY: 280,
         width: 40,
         height: 80,
         timingStart: 1000,
@@ -31,7 +31,7 @@ export const useInitialLayers = () => {
 
       const layer3 = new TextLayer({
         posX: 10,
-        posY: 130,
+        posY: 400,
         width: 40,
         height: 80,
         timingStart: 2000,
@@ -41,7 +41,7 @@ export const useInitialLayers = () => {
 
       const layer4 = new TextLayer({
         posX: 65,
-        posY: 90,
+        posY: 280,
         width: 40,
         height: 80,
         timingStart: 1000,

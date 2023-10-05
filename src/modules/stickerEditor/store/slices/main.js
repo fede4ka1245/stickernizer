@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import {tabs} from "../../consts/tabs";
 import Player from "../../shared/editor/Player";
 import {throttle} from "lodash";
+import {playerConsts} from "../../consts/playerConsts";
 
 const initialState = {
   tab: tabs.main,
@@ -19,6 +20,8 @@ export const mainSlice = createSlice({
   reducers: {
     initModule: (state, action) => {
       state.isInit = true;
+      action.payload.canvas.width = playerConsts.canvasWidth;
+      action.payload.canvas.height = playerConsts.canvasHeight;
 
       state.canvas = action.payload.canvas;
       if (!state.player) {
