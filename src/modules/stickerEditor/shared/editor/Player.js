@@ -93,6 +93,15 @@ export default class Player {
       a.textContent = 'download';
       a.href = URL.createObjectURL(blob);
       a.click();
+
+      const file = new File([blob], "stickernizer-sticker.mebm", {type: 'video/webm;codecs="vp9"'});
+      const filesArray = [file];
+
+      if(navigator.canShare && navigator.canShare({ files: filesArray })) {
+        navigator.share({
+          files: filesArray
+        });
+      }
     };
 
     this.stop();
