@@ -9,7 +9,7 @@ body, body {
 }
 
 :root {
-    --primary-color: var(--tg-theme-button-color), #8774e1);
+    --primary-color: var(--tg-theme-button-color, #8774e1);
     --text-primary-color: var(--tg-theme-button-color, #8774e1);
     --bg-color: rgb(33,33,33);
     --secondary-bg-color: rgba(33, 33, 33, 0.96) url(https://web.telegram.org/a/chat-bg-pattern-dark.ad38368a9e8140d0ac7d.png);
