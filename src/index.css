@@ -9,12 +9,12 @@ body, body {
 }
 
 :root {
-    --primary-color: #8774e1;
-    --text-primary-color: #8774e1;
-    --bg-color: rgb(33,33,33);
-    --secondary-bg-color: rgba(33, 33, 33, 0.96) url(https://web.telegram.org/a/chat-bg-pattern-dark.ad38368a9e8140d0ac7d.png);
-    --text-secondary-color: #d9d9d9;
-    --hint-color: rgba(115, 115, 115, 0.8);
+    --primary-color: var(--tg-theme-button-color, #8774e1);
+    --text-primary-color: var(--tg-theme-button-color, #8774e1);
+    --bg-color: var(--tg-theme-bg-color, rgb(33,33,33));
+    --secondary-bg-color: var(--tg-theme-secondary-bg-color, rgba(33, 33, 33, 0.96) url(https://web.telegram.org/a/chat-bg-pattern-dark.ad38368a9e8140d0ac7d.png));
+    --text-secondary-color: var(--tg-theme-text-color, #d9d9d9);
+    --hint-color: var(--tg-theme-hint-color, rgba(115, 115, 115, 0.8));
 
     --space-sm: 8px;
     --space-md: 16px;
