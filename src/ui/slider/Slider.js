@@ -4,7 +4,9 @@ import { styled } from '@mui/material/styles';
 
 const Slider = styled(MuiSlider)(({ theme }) => ({
   color: 'var(--primary-color)',
-  padding: '0 !important'
+  paddingTop: '10px !important',
+  paddingBottom: '10px !important',
+  marginBottom: '-10px !important'
 }));
 
 export default Slider;
