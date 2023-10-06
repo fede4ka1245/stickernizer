@@ -7,16 +7,21 @@ import Button from "../../../../ui/button/Button";
 import {
   changeTiming,
   initModule,
-  moveLayerToNewOrder,
+  moveLayerToNewOrder, openTab,
   resetMain,
   setProgress,
   toggleIsPaused
 } from "../../store/slices/main";
 import Player from "../player/Player";
+import {tabs} from "../../consts/tabs";
 
 const Layers = () => {
   const { layers, progress, isPaused } = useSelector((state) => state.main);
   const dispatch = useDispatch();
+
+  const onAddLayer = useCallback(() => {
+    dispatch(openTab(tabs.layerText));
+  }, []);
 
   const initStickerEditor = useCallback((canvas) => {
     if (!canvas) return;
@@ -56,7 +61,7 @@ const Layers = () => {
     <>
       <Grid>
         <Player
-          initStickerEditor={initStickerEditor}
+          init={initStickerEditor}
           progress={progress}
           isPaused={isPaused}
           onProgressChange={onProgressChange}
@@ -97,6 +102,7 @@ const Layers = () => {
         <Button
           fullWidth
           size="large"
+          onClick={onAddLayer}
           variant="contained"
         >
           Add Layer

@@ -4,7 +4,7 @@ import styles from "./Player.module.css";
 import PlayerSlider from "../../../../components/playerSlider/PlayerSlider";
 import classNames from "classnames";
 
-const Player = ({ initStickerEditor, progress, isPaused, setIsPaused, onProgressChange, isSmall }) => {
+const Player = ({ init, progress, isPaused, setIsPaused, onProgressChange, isSmall }) => {
   return (
     <>
       <Grid
@@ -12,14 +12,13 @@ const Player = ({ initStickerEditor, progress, isPaused, setIsPaused, onProgress
         flexDirection={'column'}
         justifyContent={'center'}
         alignItems={'center'}
-        mb={'var(--space-sm)'}
         backgroundColor={'var(--bg-color)'}
         borderTop={'var(--element-border)'}
         borderBottom={'var(--element-border)'}
         position={'relative'}
       >
         <canvas
-          ref={initStickerEditor}
+          ref={init}
           className={classNames(styles.canvas, { [styles.smallCanvas]: isSmall })}
         />
         <Grid

@@ -47,7 +47,7 @@ const Main = () => {
   return (
     <>
       <Player
-        initStickerEditor={initStickerEditor}
+        init={initStickerEditor}
         progress={progress}
         isPaused={isPaused}
         onProgressChange={onProgressChange}

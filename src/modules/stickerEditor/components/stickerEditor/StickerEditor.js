@@ -2,7 +2,6 @@ import React, {useCallback, useMemo} from 'react';
 import {Grid} from "@mui/material";
 import Tabs from '../../../../ui/tabs/Tabs';
 import Tab from '../../../../ui/tab/Tab';
-import ButtonBack from "../../../../ui/buttonBack/ButtonBack";
 import {useNavigate} from "react-router-dom";
 import {routes} from "../../../../routes";
 import {tabs} from "../../consts/tabs";
@@ -13,10 +12,12 @@ import {
 import Main from "../main/Main";
 import Layers from "../layers/Layers";
 import {useInitialLayers} from "../../hooks/useInitialLayers";
+import ButtonBackPanel from "../../../../components/buttonBackPanel/ButtonBackPanel";
+import TextLayer from "../textLayer/TextLayer";
 
 const StickerEditor = () => {
   const { tab } = useSelector((state) => state.main);
-  const pageTabs = useMemo(() => Object.values(tabs), []);
+  const pageTabs = useMemo(() => [tabs.main, tabs.layers], []);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -35,20 +36,9 @@ const StickerEditor = () => {
   return (
     <Grid display={'flex'} flexDirection={'column'} height={'var(--tg-viewport-stable-height)'}>
       {(tab.value === tabs.main.value || tab.value === tabs.layers.value) && <>
-        <Grid
-          position={'sticky'}
-          left={0}
-          top={0}
-          display={'flex'}
-          alignItems={'center'}
-          ml={'var(--space-sm)'}
-          mr={'var(--space-sm)'}
-          pt={'var(--space-md)'}
-          mb={'var(--space-md)'}
+        <ButtonBackPanel
+          onButtonBackClick={onButtonBackClick}
         >
-          <Grid mr={'var(--space-sm)'}>
-            <ButtonBack onClick={onButtonBackClick} />
-          </Grid>
           <Grid
             border={'var(--element-border)'}
             overflow={'hidden'}
@@ -68,12 +58,15 @@ const StickerEditor = () => {
               ))}
             </Tabs>
           </Grid>
-        </Grid>
+        </ButtonBackPanel>
         <Grid display={'inherit'} flexDirection={'inherit'} flex={1}>
           {tab.value === tabs.main.value && <Main />}
           {tab.value === tabs.layers.value && <Layers />}
         </Grid>
       </>}
+      {tab.value === tabs.layerText.value && (
+        <TextLayer />
+      )}
     </Grid>
   );
 };

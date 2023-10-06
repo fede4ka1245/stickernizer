@@ -6,5 +6,13 @@ export const tabs = {
   layers:  {
     label: 'Layers',
     value: 'layers'
+  },
+  layerText:  {
+    label: 'layerText',
+    value: 'layerText'
+  },
+  layerVideo:  {
+    label: 'layerVideo',
+    value: 'layerVideo'
   }
 };
