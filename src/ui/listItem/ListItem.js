@@ -10,7 +10,18 @@ const ListItem = ({ image, text, endListContent }) => {
       </Grid>}
       {!image && <Grid width={'42px'} height={'42px'} bgcolor={'var(--hint-color)'} borderRadius={'var(--border-radius-sm)'}/>}
       <Grid flex={1} ml={'var(--space-sm)'}>
-        <Typography color={'var(--hint-color)'} fontWeight={'bold'}>
+        <Typography
+          fontSize={'var(--font-size-sm)'}
+          lineHeight={'var(--font-size-sm)'}
+          sx={{
+            '-webkit-line-clamp': 1,
+            overflow: 'hidden',
+            maxHeight: 'calc(var(--font-size-sm) * 1)',
+            textOverflow: 'ellipsis'
+          }}
+          color={'var(--hint-color)'}
+          fontWeight={'bold'}
+        >
           {text}
         </Typography>
       </Grid>

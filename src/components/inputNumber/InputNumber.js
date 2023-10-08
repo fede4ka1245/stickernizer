@@ -1,10 +1,18 @@
 import React from 'react';
 import Input from "../../ui/input/Input";
 
-const InputNumber = ({ value, onValueChange, label }) => {
+const InputNumber = ({ value, onChange, label, ...props }) => {
   return (
     <>
-      <Input size={'small'} label={label || 'input'} variant="outlined" type={'number'} />
+      <Input
+        {...props}
+        value={value}
+        onChange={onChange}
+        size={'small'}
+        label={label || 'input'}
+        variant="outlined"
+        type={'number'}
+      />
     </>
   );
 };

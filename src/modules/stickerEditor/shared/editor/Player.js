@@ -23,8 +23,8 @@ export default class Player {
     const context = this.canvas.getContext('2d');
     context.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-    for (const layer of this.layers) {
-      layer.render(this.canvas, videoTiming);
+    for (let layerIndex = this.layers.length - 1; layerIndex >= 0; layerIndex--) {
+      this.layers[layerIndex].render(this.canvas, this.videoTiming);
     }
 
     this.videoTiming = videoTiming;
@@ -57,8 +57,8 @@ export default class Player {
     const context = this.canvas.getContext('2d');
     context.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-    for (const layer of this.layers) {
-      layer.render(this.canvas, this.videoTiming);
+    for (let layerIndex = this.layers.length - 1; layerIndex >= 0; layerIndex--) {
+      this.layers[layerIndex].render(this.canvas, this.videoTiming);
     }
 
     for (const listener of Object.values(this.listeners)) {
@@ -117,7 +117,19 @@ export default class Player {
   }
 
   addLayer(layer) {
-    this.layers = [layer, ...this.layers].reverse();
+    const targetIndex = [...this.layers].findIndex(({ id }) => id === layer.id)
+
+    if (targetIndex !== -1) {
+      this.layers[targetIndex] = layer;
+      this.goTo(this.videoTiming);
+    } else {
+      this.layers = [...this.layers, layer];
+      this.goTo(this.videoTiming);
+    }
+  }
+
+  deleteLayer(layerId) {
+    this.layers = [...this.layers].filter(({ id }) => id !== layerId);
     this.goTo(this.videoTiming);
   }
 
@@ -133,7 +145,7 @@ export default class Player {
   }
 
   getLayers() {
-    return this.layers.reverse();
+    return this.layers;
   }
 
   moveLayerToNewOrder(layerOrder, newLayerOrder) {

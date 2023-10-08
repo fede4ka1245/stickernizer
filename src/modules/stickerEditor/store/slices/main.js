@@ -3,6 +3,7 @@ import {tabs} from "../../consts/tabs";
 import Player from "../../shared/editor/Player";
 import {throttle} from "lodash";
 import {playerConsts} from "../../consts/playerConsts";
+import {emptyLayerName} from "../../consts/layerConsts";
 
 const initialState = {
   tab: tabs.main,
@@ -59,7 +60,14 @@ export const mainSlice = createSlice({
       state.player.download();
     },
     addLayer: (state, action) => {
+      if (action.payload.layerName === emptyLayerName || !action.payload.layerName) {
+        action.payload.layerName = `${emptyLayerName} (${state.player.getLayers().length + 1})`
+      }
       state.player.addLayer(action.payload);
+      state.layers = [...state.player.getLayers().map((layer) => JSON.parse(JSON.stringify(layer)))];
+    },
+    deleteLayer: (state, action) => {
+      state.player.deleteLayer(action.payload);
       state.layers = [...state.player.getLayers().map((layer) => JSON.parse(JSON.stringify(layer)))];
     },
     moveLayerToNewOrder: (state, action) => {
@@ -73,6 +81,6 @@ export const mainSlice = createSlice({
   },
 })
 
-export const { openTab, moveLayerToNewOrder, resetMain, addLayer, toggleIsPaused, setProgress, download, changeTiming, initModule } = mainSlice.actions
+export const { openTab, moveLayerToNewOrder, resetMain, deleteLayer, addLayer, toggleIsPaused, setProgress, download, changeTiming, initModule } = mainSlice.actions
 
 export default mainSlice.reducer

@@ -20,7 +20,7 @@ const Layers = () => {
   const dispatch = useDispatch();
 
   const onAddLayer = useCallback(() => {
-    dispatch(openTab(tabs.layerText));
+    dispatch(openTab(tabs.layer));
   }, []);
 
   const initStickerEditor = useCallback((canvas) => {

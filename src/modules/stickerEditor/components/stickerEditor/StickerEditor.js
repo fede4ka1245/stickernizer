@@ -13,7 +13,7 @@ import Main from "../main/Main";
 import Layers from "../layers/Layers";
 import {useInitialLayers} from "../../hooks/useInitialLayers";
 import ButtonBackPanel from "../../../../components/buttonBackPanel/ButtonBackPanel";
-import TextLayer from "../textLayer/TextLayer";
+import LayerEditor from "../layerEditor/LayerEditor";
 
 const StickerEditor = () => {
   const { tab } = useSelector((state) => state.main);
@@ -64,8 +64,8 @@ const StickerEditor = () => {
           {tab.value === tabs.layers.value && <Layers />}
         </Grid>
       </>}
-      {tab.value === tabs.layerText.value && (
-        <TextLayer />
+      {tab.value === tabs.layer.value && (
+        <LayerEditor />
       )}
     </Grid>
   );

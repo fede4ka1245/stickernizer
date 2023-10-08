@@ -10,50 +10,71 @@ export const useInitialLayers = () => {
   useEffect(() => {
     if (isInit && !layers?.length) {
       const layer1 = new TextLayer({
-        posX: 10,
-        posY: 160,
-        width: 40,
-        height: 80,
-        timingStart: 0,
-        timingEnd: 1000,
-        text: 'My'
+        layerName: 'My',
+        transformProps: {
+          posX: 250,
+          posY: 10 + 90,
+          width: 40,
+          height: 80,
+        },
+        timingProps: {
+          timingStart: 0,
+          timingEnd: 1000,
+        },
+        textProps: {
+          text: 'My',
+          fontSize: 100,
+          fontFamily: 'Arial',
+          color: 'white',
+          textAlign: 'center'
+        }
       });
 
       const layer2 = new TextLayer({
-        posX: 10,
-        posY: 280,
-        width: 40,
-        height: 80,
-        timingStart: 1000,
-        timingEnd: 2000,
-        text: 'First'
+        layerName: 'First',
+        transformProps: {
+          posX: 250,
+          posY: 200 + 90,
+          width: 40,
+          height: 80,
+        },
+        timingProps: {
+          timingStart: 1000,
+          timingEnd: 2000,
+        },
+        textProps: {
+          text: 'First',
+          fontSize: 100,
+          fontFamily: 'Arial',
+          color: 'white',
+          textAlign: 'center'
+        }
       });
 
       const layer3 = new TextLayer({
-        posX: 10,
-        posY: 400,
-        width: 40,
-        height: 80,
-        timingStart: 2000,
-        timingEnd: 3000,
-        text: 'Sticker'
-      });
-
-      const layer4 = new TextLayer({
-        posX: 65,
-        posY: 280,
-        width: 40,
-        height: 80,
-        timingStart: 1000,
-        timingEnd: 2500,
-        text: 'Above',
-        color: 'red'
+        layerName: 'Sticker',
+        transformProps: {
+          posX: 250,
+          posY: 400 + 90,
+          width: 40,
+          height: 80,
+        },
+        timingProps: {
+          timingStart: 2000,
+          timingEnd: 3000,
+        },
+        textProps: {
+          text: 'Sticker',
+          fontSize: 100,
+          fontFamily: 'Arial',
+          color: 'white',
+          textAlign: 'center'
+        }
       });
 
       dispatch(addLayer(layer1));
       dispatch(addLayer(layer2));
       dispatch(addLayer(layer3));
-      dispatch(addLayer(layer4));
     }
   }, [isInit]);
 }

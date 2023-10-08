@@ -60,7 +60,7 @@ const Main = () => {
           variant="contained"
           onClick={onDownload}
         >
-          Download video
+          Get sticker
         </Button>
       </Grid>
     </>

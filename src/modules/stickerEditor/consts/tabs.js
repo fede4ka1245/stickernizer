@@ -7,12 +7,8 @@ export const tabs = {
     label: 'Layers',
     value: 'layers'
   },
-  layerText:  {
-    label: 'layerText',
-    value: 'layerText'
-  },
-  layerVideo:  {
-    label: 'layerVideo',
-    value: 'layerVideo'
+  layer:  {
+    label: 'layer',
+    value: 'layer'
   }
 };
