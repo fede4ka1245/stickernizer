@@ -106,6 +106,30 @@ const TextSetter = ({ textSetterState, setTextSetterState }) => {
           fontWeight={'bold'}
           color={'var(--text-secondary-color)'}
         >
+          Stroke
+        </Typography>
+      </Grid>
+      <Grid mt={'var(--space-md)'}>
+        <InputNumber
+          fullWidth
+          type={'outline'}
+          label={'Stroke width'}
+          value={textSetterState.strokeWidth}
+          onChange={onStrokeWidthChange}
+        />
+      </Grid>
+      <Grid mt={'var(--space-md)'}>
+        <InputColorPicker
+          value={textSetterState.strokeColor}
+          onChange={onStrokeColorChange}
+        />
+      </Grid>
+      <Grid mt={'var(--space-md)'}>
+        <Typography
+          fontSize={'var(--font-size-sm)'}
+          fontWeight={'bold'}
+          color={'var(--text-secondary-color)'}
+        >
           Text Align
         </Typography>
         <RadioGroup
@@ -190,30 +214,6 @@ const TextSetter = ({ textSetterState, setTextSetterState }) => {
               />
             ))}
           </FormGroup>
-        </Grid>
-        <Grid mt={'var(--space-md)'}>
-          <Typography
-            fontSize={'var(--font-size-sm)'}
-            fontWeight={'bold'}
-            color={'var(--text-secondary-color)'}
-          >
-            Stroke
-          </Typography>
-        </Grid>
-        <Grid mt={'var(--space-md)'}>
-          <InputNumber
-            fullWidth
-            type={'outline'}
-            label={'Stroke width'}
-            value={textSetterState.strokeWidth}
-            onChange={onStrokeWidthChange}
-          />
-        </Grid>
-        <Grid mt={'var(--space-md)'}>
-          <InputColorPicker
-            value={textSetterState.strokeColor}
-            onChange={onStrokeColorChange}
-          />
         </Grid>
       </Grid>
     </>

@@ -2,13 +2,24 @@ import {useEffect} from "react";
 import TextLayer from "../shared/editor/TextLayer";
 import {addLayer} from "../store/slices/main";
 import {useDispatch, useSelector} from "react-redux";
+import {useLocation} from "react-router-dom";
 
 export const useInitialLayers = () => {
-  const { isInit, layers } = useSelector((state) => state.main);
+  const { isInit, layers, player } = useSelector((state) => state.main);
+  const { state } = useLocation();
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (isInit && !layers?.length) {
+      if (state) {
+        player.id = state.id;
+        player.name = state.name;
+        state.layers.forEach((layer) => {
+          dispatch(addLayer(new TextLayer(layer)));
+        });
+        return;
+      }
+
       const layer1 = new TextLayer({
         layerName: 'My',
         transformProps: {

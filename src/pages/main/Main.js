@@ -3,6 +3,7 @@ import {Grid, Typography} from "@mui/material";
 import Tappable from "../../ui/tappable/Tappable";
 import {useNavigate} from "react-router-dom";
 import {routes} from "../../routes";
+import Logo from "../../ui/logo/Logo";
 
 const Main = () => {
   const navigate = useNavigate();
@@ -29,41 +30,7 @@ const Main = () => {
         flexDirection={'column'}
         height={'250px'}
       >
-        <Typography
-          fontSize={'var(--font-size-lg)'}
-          lineHeight={'var(--font-size-lg)'}
-          fontWeight={'bold'}
-          color={'var(--text-secondary-color)'}
-          mb={'var(--space-md)'}
-        >
-          Stickernizer
-        </Typography>
-        <Typography
-          fontSize={'var(--font-size-lg)'}
-          lineHeight={'var(--font-size-lg)'}
-          fontWeight={'bold'}
-          color={'var(--text-secondary-color)'}
-          mb={'var(--space-md)'}
-        >
-          Stickernizer
-        </Typography>
-        <Typography
-          fontSize={'var(--font-size-lg)'}
-          lineHeight={'var(--font-size-lg)'}
-          fontWeight={'bold'}
-          color={'var(--text-secondary-color)'}
-          mb={'var(--space-md)'}
-        >
-          Stickernizer
-        </Typography>
-        <Typography
-          fontSize={'var(--font-size-lg)'}
-          lineHeight={'var(--font-size-lg)'}
-          fontWeight={'bold'}
-          color={'var(--text-secondary-color)'}
-        >
-          Stickernizer
-        </Typography>
+        <Logo />
       </Grid>
       <Tappable onClick={onStickersEditorClick}>
         <Grid

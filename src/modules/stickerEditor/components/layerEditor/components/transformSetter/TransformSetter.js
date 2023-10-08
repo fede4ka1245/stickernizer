@@ -11,7 +11,6 @@ const TransformSetter = ({ transformState, setTransformState }) => {
   }, [transformState]);
 
   const setYPosition = useCallback((event) => {
-    console.log(event.target.value);
     setTransformState({
       ...transformState,
       posY: event.target.value

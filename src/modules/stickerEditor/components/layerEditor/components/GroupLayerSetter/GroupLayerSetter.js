@@ -65,7 +65,6 @@ const GroupLayerSetter = ({ type }) => {
 
   useLayoutEffect(() => {
     if (layer) {
-      console.log(JSON.parse(JSON.stringify(layer)));
       setState(JSON.parse(JSON.stringify(layer)));
     }
   }, []);

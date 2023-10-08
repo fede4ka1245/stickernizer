@@ -1,4 +1,5 @@
 import {playerConsts} from "../../consts/playerConsts";
+import { v4 as uuidv4 } from 'uuid';
 
 export default class Player {
   constructor(canvas) {
@@ -8,6 +9,7 @@ export default class Player {
     this.endVideoTiming = playerConsts.maxTiming;
     this.listeners = {};
     this.layers = [];
+    this.id = uuidv4();
     window.requestAnimationFrame(this.update.bind(this));
   }
 

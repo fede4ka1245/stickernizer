@@ -75,12 +75,15 @@ export const mainSlice = createSlice({
       state.layers = newLayers.map((layer) => JSON.parse(JSON.stringify(layer)));
     },
     resetMain: (state) => {
-      state.player.stop();
-      state.isInit = false;
-    }
+      if (state.player) {
+        state.player.stop();
+        state.isInit = false;
+      }
+    },
+    resetWorkspace: () => initialState
   },
 })
 
-export const { openTab, moveLayerToNewOrder, resetMain, deleteLayer, addLayer, toggleIsPaused, setProgress, download, changeTiming, initModule } = mainSlice.actions
+export const { openTab, resetWorkspace, moveLayerToNewOrder, resetMain, deleteLayer, addLayer, toggleIsPaused, setProgress, download, changeTiming, initModule } = mainSlice.actions
 
 export default mainSlice.reducer

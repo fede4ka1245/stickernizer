@@ -16,6 +16,12 @@ const Button = styled(MuiButton)(({ theme }) => ({
     backgroundColor: 'var(--primary-color)',
     borderColor: 'var(--primary-color)',
   },
+  '&.MuiButton-outline': {
+    background: 'transparent',
+    color: 'var(--text-primary-color)',
+    borderRadius: 'var(--border-radius-md)',
+    border: 'var(--primary-color) solid 1px'
+  }
 }));
 
 export default Button;

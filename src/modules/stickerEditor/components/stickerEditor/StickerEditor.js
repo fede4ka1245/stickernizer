@@ -1,4 +1,4 @@
-import React, {useCallback, useMemo} from 'react';
+import React, {useCallback, useLayoutEffect, useMemo} from 'react';
 import {Grid} from "@mui/material";
 import Tabs from '../../../../ui/tabs/Tabs';
 import Tab from '../../../../ui/tab/Tab';
@@ -7,7 +7,7 @@ import {routes} from "../../../../routes";
 import {tabs} from "../../consts/tabs";
 import {useDispatch, useSelector} from "react-redux";
 import {
-  openTab
+  openTab, resetWorkspace
 } from "../../store/slices/main";
 import Main from "../main/Main";
 import Layers from "../layers/Layers";
@@ -26,12 +26,18 @@ const StickerEditor = () => {
   }, []);
 
   const onButtonBackClick = useCallback(() => {
-    if (window.confirm("Your current progress won't be saved, confirm you want to exit.")) {
+    if (window.confirm("Confirm you want to exit. If you don't save sticker, the progress will be lost!")) {
       navigate(routes.main);
     }
   }, []);
 
   useInitialLayers();
+
+  useLayoutEffect(() => {
+    return () => {
+      dispatch(resetWorkspace());
+    }
+  }, []);
 
   return (
     <Grid display={'flex'} flexDirection={'column'} height={'var(--tg-viewport-stable-height)'}>
