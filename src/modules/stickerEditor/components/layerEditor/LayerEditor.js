@@ -28,6 +28,10 @@ const LayerEditor = () => {
   const { progress, isPaused, layer, layerName } = useSelector((state) => state.layer);
 
   const onBackClick = useCallback(() => {
+    if (!window.confirm("Are you sure you want to exit, the progress won't be saved!")) {
+      return;
+    }
+
     dispatch(openTab(tabs.layers));
   }, []);
 

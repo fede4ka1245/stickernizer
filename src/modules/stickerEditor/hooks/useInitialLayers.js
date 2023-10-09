@@ -36,7 +36,7 @@ export const useInitialLayers = () => {
           text: 'My',
           fontSize: 100,
           fontFamily: 'Arial',
-          color: 'white',
+          color: '#ffffff',
           textAlign: 'center'
         }
       });
@@ -57,7 +57,7 @@ export const useInitialLayers = () => {
           text: 'First',
           fontSize: 100,
           fontFamily: 'Arial',
-          color: 'white',
+          color: '#ffffff',
           textAlign: 'center'
         }
       });
@@ -78,7 +78,7 @@ export const useInitialLayers = () => {
           text: 'Sticker',
           fontSize: 100,
           fontFamily: 'Arial',
-          color: 'white',
+          color: '#ffffff',
           textAlign: 'center'
         }
       });

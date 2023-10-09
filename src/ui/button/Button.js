@@ -21,7 +21,18 @@ const Button = styled(MuiButton)(({ theme }) => ({
     color: 'var(--text-primary-color)',
     borderRadius: 'var(--border-radius-md)',
     border: 'var(--primary-color) solid 1px'
-  }
+  },
+  '&.Mui-disabled': {
+    background: 'var(--primary-color)',
+    color: 'var(--text-secondary-color)',
+    filter: 'brightness(0.6)'
+  },
+  '&.MuiButton-outline.Mui-disabled': {
+    background: 'transparent',
+    color: 'var(--text-primary-color)',
+    borderRadius: 'var(--border-radius-md)',
+    border: 'var(--primary-color) solid 1px'
+  },
 }));
 
 export default Button;

@@ -46,6 +46,8 @@ export const layerSlice = createSlice({
         state.layerName = state.layer.layerName;
       }
       state.player.addLayer(state.layer);
+      state.player.goTo(state.layer.timingProps.timingStart);
+      state.progress = state.layer.timingProps.timingStart / state.player.endVideoTiming * 100;
     },
     setLayer: (state, action) => {
       state.layer = action.payload;

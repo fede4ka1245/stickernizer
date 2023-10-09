@@ -73,6 +73,10 @@ const GroupLayerSetter = ({ type }) => {
     dispatch(updateProperties(state));
   }, [state]);
 
+  const onTouchMove = useCallback((event) => {
+    event.stopPropagation();
+  }, []);
+
   return (
     <>
       <Grid
@@ -95,9 +99,9 @@ const GroupLayerSetter = ({ type }) => {
       </Grid>
       <Grid
         border={'var(--element-border)'}
-        overflow={'hidden'}
         borderRadius={'var(--border-radius-lg)'}
         backgroundColor={'var(--bg-color)'}
+        onTouchMove={onTouchMove}
         height={'100%'}
         sx={{ overflowY: 'scroll' }}
         m={'var(--space-sm)'}

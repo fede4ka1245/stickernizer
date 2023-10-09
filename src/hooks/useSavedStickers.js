@@ -27,6 +27,10 @@ export const useSavedStickers = () => {
   }, [state]);
 
   const removeSticker = useCallback((sticker) => {
+    if (!window.confirm("Do you want to delete sticker?")) {
+      return;
+    }
+
     removeItem(sticker.id)
       .then((result) => {
         if (result) {
