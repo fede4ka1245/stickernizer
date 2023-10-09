@@ -1,6 +1,6 @@
 import {useEffect} from "react";
 import TextLayer from "../shared/editor/TextLayer";
-import {addLayer} from "../store/slices/main";
+import {addLayer, updateStickerName} from "../store/slices/main";
 import {useDispatch, useSelector} from "react-redux";
 import {useLocation} from "react-router-dom";
 
@@ -13,10 +13,10 @@ export const useInitialLayers = () => {
     if (isInit && !layers?.length) {
       if (state) {
         player.id = state.id;
-        player.name = state.name;
         state.layers.forEach((layer) => {
           dispatch(addLayer(new TextLayer(layer)));
         });
+        dispatch(updateStickerName(state.name));
         return;
       }
 

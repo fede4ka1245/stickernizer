@@ -12,7 +12,8 @@ const initialState = {
   isInit: false,
   layers: [],
   canvas: null,
-  player: null
+  player: null,
+  stickerName: ''
 };
 
 export const mainSlice = createSlice({
@@ -33,9 +34,16 @@ export const mainSlice = createSlice({
         state.player.goTo(state.player.videoTiming);
       }
 
+      state.stickerName = 'Default name';
+      state.player.name = state.stickerName;
+
       if (action.payload.onProgressChange) {
         state.player.addListener(throttle(action.payload.onProgressChange, 200));
       }
+    },
+    updateStickerName: (state, action) => {
+      state.stickerName = action.payload;
+      state.player.name = state.stickerName;
     },
     setProgress: (state, action) => {
       state.progress = action.payload;
@@ -56,8 +64,8 @@ export const mainSlice = createSlice({
     openTab: (state, action) => {
       state.tab = action.payload;
     },
-    download: (state) => {
-      state.player.download();
+    download: (state, action) => {
+      state.player.download(action.payload);
     },
     addLayer: (state, action) => {
       if (action.payload.layerName === emptyLayerName || !action.payload.layerName) {
@@ -84,6 +92,6 @@ export const mainSlice = createSlice({
   },
 })
 
-export const { openTab, resetWorkspace, moveLayerToNewOrder, resetMain, deleteLayer, addLayer, toggleIsPaused, setProgress, download, changeTiming, initModule } = mainSlice.actions
+export const { openTab, resetWorkspace, updateStickerName, moveLayerToNewOrder, resetMain, deleteLayer, addLayer, toggleIsPaused, setProgress, download, changeTiming, initModule } = mainSlice.actions
 
 export default mainSlice.reducer

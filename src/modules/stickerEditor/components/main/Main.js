@@ -7,13 +7,15 @@ import {
   download,
   initModule, resetMain,
   setProgress,
-  toggleIsPaused
+  toggleIsPaused, updateStickerName
 } from "../../store/slices/main";
 import Player from "../player/Player";
 import {useSaveSticker} from "../../../../hooks/useSaveSticker";
+import axios from "axios";
+import Input from "../../../../ui/input/Input";
 
 const Main = () => {
-  const { progress, isPaused, player } = useSelector((state) => state.main);
+  const { progress, isPaused, player, stickerName } = useSelector((state) => state.main);
   const dispatch = useDispatch();
 
   const {
@@ -71,8 +73,25 @@ const Main = () => {
     dispatch(toggleIsPaused(isPaused));
   }, []);
 
+  const onUpdateStickerName = useCallback((event) => {
+    dispatch(updateStickerName(event.target.value));
+  }, []);
+
+  const loadSticker = useCallback((file) => {
+    const formData = new FormData();
+    formData.append("queryId", window.Telegram?.WebApp?.initDataUnsafe?.query_id);
+    formData.append("sticker", file);
+
+    axios({
+      method: "post",
+      url: 'https://surdogram.ru/upload-sticker',
+      data: formData,
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+  }, []);
+
   const onDownload = useCallback(() => {
-    dispatch(download());
+    dispatch(download(loadSticker));
   }, []);
 
   useEffect(() => {
@@ -90,6 +109,16 @@ const Main = () => {
         onProgressChange={onProgressChange}
         setIsPaused={setIsPaused}
       />
+      <Grid p={'var(--space-sm)'} mt={'var(--space-sm)'}>
+        <Input
+          size={'small'}
+          type={'outline'}
+          label={'Sticker name'}
+          fullWidth
+          onChange={onUpdateStickerName}
+          value={stickerName}
+        />
+      </Grid>
       <Grid mt={'auto'} p={'var(--space-sm)'} >
         <Button
           fullWidth

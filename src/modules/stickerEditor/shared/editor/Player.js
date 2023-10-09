@@ -1,5 +1,6 @@
 import {playerConsts} from "../../consts/playerConsts";
 import { v4 as uuidv4 } from 'uuid';
+import RecordRTC from 'recordrtc';
 
 export default class Player {
   constructor(canvas) {
@@ -76,42 +77,34 @@ export default class Player {
     this.end = func;
   }
 
-  download() {
-    const chunks = [];
+  download(onDownload) {
+    console.log(onDownload);
     const stream = this.canvas.captureStream();
 
-    const recorder = new MediaRecorder(stream, {
+    let recorder = RecordRTC(stream, {
       mimeType: 'video/webm;codecs=vp9'
     });
-    recorder.ondataavailable = (event) => chunks.push(event.data);
-    recorder.onstop = () => {
-      const blob = new Blob(chunks, {
-        type: 'video/webm;codecs="vp9"',
-      });
-
-      const a = document.createElement('a');
-      a.id = 'download';
-      a.download = (new Date()).getTime();
-      a.textContent = 'download';
-      a.href = URL.createObjectURL(blob);
-      a.click();
-
-      const file = new File([blob], "stickernizer-sticker.mebm", {type: 'video/webm;codecs="vp9"'});
-      const filesArray = [file];
-
-      if(navigator.canShare && navigator.canShare({ files: filesArray })) {
-        navigator.share({
-          files: filesArray
-        });
-      }
-    };
 
     this.stop();
     this.goTo(0);
     this.play();
-    recorder.start();
+    recorder.startRecording();
     this.onEnd(function() {
-      recorder.stop();
+      recorder.stopRecording(function() {
+        let blob = recorder.getBlob();
+
+        if (onDownload) {
+          const file = new File([blob], "stickernizer-sticker.mebm", {type: 'video/webm;codecs="vp9"'});
+          onDownload(file);
+        } else {
+          const a = document.createElement('a');
+          a.id = 'download';
+          a.download = "stickernizer-sticker.webm";
+          a.textContent = 'download';
+          a.href = URL.createObjectURL(blob);
+          a.click();
+        }
+      });
       this.stop();
       this.goTo(0);
       this.onEnd(null);
