@@ -9,7 +9,7 @@ const Main = () => {
   const navigate = useNavigate();
 
   const onAboutClick = useCallback(() => {
-    window.open('https://bragin-f.notion.site/Stickernizer-ca9ceff586aa41f39dc1bc9f92ce4075?pvs=4');
+    window.open(process.env.ABOUT_LINK);
   }, []);
 
   const onSavedStickersClick = useCallback(() => {
@@ -72,7 +72,7 @@ const Main = () => {
           </Typography>
         </Grid>
       </Tappable>
-      <Tappable onClick={onAboutClick}>
+      {process.env.ABOUT_LINK && <Tappable onClick={onAboutClick}>
         <Grid
           m={'var(--space-sm)'}
           display={'flex'}
@@ -91,7 +91,7 @@ const Main = () => {
             About
           </Typography>
         </Grid>
-      </Tappable>
+      </Tappable>}
     </>
   );
 };

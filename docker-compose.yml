@@ -3,7 +3,7 @@ services:
   client:
     container_name: client_frontend
     build:
-      context: .
+      context: ..
     environment:
       PORT: 3030
     ports:
