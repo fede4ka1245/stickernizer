@@ -8,11 +8,16 @@ import TransformSetter from "../transformSetter/TransformSetter";
 import TimingSetter from "../timingSetter/TimingSetter";
 import {useDispatch, useSelector} from "react-redux";
 import {updateProperties} from "../../../../store/slices/layer";
+import TextStylingSetter from "../textStylingSetter/TextStylingSetter";
 
 const tabs = {
   text: {
     label: 'Text',
     value: 'text',
+  },
+  textStyling: {
+    label: 'Text styling',
+    value: 'textStyling',
   },
   transform: {
     label: 'Transform',
@@ -123,6 +128,12 @@ const GroupLayerSetter = ({ type }) => {
           <TimingSetter
             timingState={state.timingProps}
             setTimingState={onTimingPropsChange}
+          />
+        )}
+        {tab.value === tabs.textStyling.value && (
+          <TextStylingSetter
+            textSetterState={state.textProps}
+            setTextSetterState={onTextPropsChange}
           />
         )}
       </Grid>

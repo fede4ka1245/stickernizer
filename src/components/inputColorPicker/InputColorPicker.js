@@ -2,7 +2,7 @@ import React from 'react';
 import {Grid} from "@mui/material";
 import Input from "../../ui/input/Input";
 
-const InputColorPicker = ({ onChange, value, ...props }) => {
+const InputColorPicker = ({ onChange, value, label, ...props }) => {
   return (
     <>
       <Grid display={'flex'}>
@@ -10,7 +10,7 @@ const InputColorPicker = ({ onChange, value, ...props }) => {
           <Input
             size={'small'}
             type={'outline'}
-            label={'Color'}
+            label={label || 'Color'}
             disabled
             fullWidth
             value={value}
