@@ -87,7 +87,7 @@ const Main = () => {
 
     axios({
       method: "post",
-      url: 'https://localhost:3030/upload-sticker',
+      url: `${process.env.REACT_APP_API_URL}/upload-sticker`,
       data: formData,
       headers: { "Content-Type": "multipart/form-data" },
     })
