@@ -12,6 +12,7 @@ import {deleteLayer, openTab} from "../../../store/slices/main";
 import {setLayer} from "../../../store/slices/layer";
 import {tabs} from "../../../consts/tabs";
 import lodash from "lodash";
+import {appConfirm} from "../../../../userFeedback";
 
 const Layer = ({ layer, provided, snapshot }) => {
   const { player } = useSelector((state) => state.main);
@@ -35,8 +36,8 @@ const Layer = ({ layer, provided, snapshot }) => {
     return "Default Layer";
   }, [layer]);
 
-  const onDeleteLayerClick = useCallback(() => {
-    if (!window.confirm("Are you sure you want to delete the layer?")) {
+  const onDeleteLayerClick = useCallback(async () => {
+    if (!await appConfirm("Are you sure you want to delete the layer?")) {
       return;
     }
 

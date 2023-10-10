@@ -1,6 +1,7 @@
 import {useCallback, useEffect, useMemo, useState} from "react";
 import {cloudStorageKey, getItem, setItem} from "../shared/cloudStorage";
 import {removeItem} from "../shared/cloudStorage/removeItem";
+import {appConfirm} from "../modules/userFeedback";
 
 export const useSavedStickers = () => {
   const [state, setState] = useState({
@@ -26,8 +27,8 @@ export const useSavedStickers = () => {
       })
   }, [state]);
 
-  const removeSticker = useCallback((sticker) => {
-    if (!window.confirm("Do you want to delete sticker?")) {
+  const removeSticker = useCallback(async (sticker) => {
+    if (!await appConfirm("Do you want to delete sticker?")) {
       return;
     }
 

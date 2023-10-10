@@ -14,6 +14,7 @@ import Layers from "../layers/Layers";
 import {useInitialLayers} from "../../hooks/useInitialLayers";
 import ButtonBackPanel from "../../../../components/buttonBackPanel/ButtonBackPanel";
 import LayerEditor from "../layerEditor/LayerEditor";
+import {appConfirm} from "../../../userFeedback";
 
 const StickerEditor = () => {
   const { tab } = useSelector((state) => state.main);
@@ -25,8 +26,8 @@ const StickerEditor = () => {
     dispatch(openTab(tabs[newValue]));
   }, []);
 
-  const onButtonBackClick = useCallback(() => {
-    if (window.confirm("Confirm you want to exit. If you don't save sticker, the progress will be lost!")) {
+  const onButtonBackClick = useCallback(async () => {
+    if (await appConfirm("Confirm you want to exit. If you don't save sticker, the progress will be lost!")) {
       navigate(routes.main);
     }
   }, []);

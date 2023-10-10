@@ -22,13 +22,14 @@ import TextLayer from "../../shared/editor/TextLayer";
 import {blankTextSetter, blankTimingSetter, blankTransformSetter} from "../../consts/layerConsts";
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import Tappable from "../../../../ui/tappable/Tappable";
+import {appConfirm, appPrompt} from "../../../userFeedback";
 
 const LayerEditor = () => {
   const dispatch = useDispatch();
   const { progress, isPaused, layer, layerName } = useSelector((state) => state.layer);
 
-  const onBackClick = useCallback(() => {
-    if (!window.confirm("Are you sure you want to exit, the progress won't be saved!")) {
+  const onBackClick = useCallback(async () => {
+    if (!await appConfirm("Are you sure you want to exit, the progress won't be saved!")) {
       return;
     }
 
@@ -64,11 +65,10 @@ const LayerEditor = () => {
     dispatch(openTab(tabs.layers));
   }, [layer]);
 
-  const onNameChange = useCallback(() => {
-    const name = prompt("Set new Layer name");
+  const onNameChange = useCallback(async () => {
+    const name = await appPrompt("Set new Layer name");
 
-    if (!name || name.length < 4) {
-      alert('Name too short!');
+    if (!name) {
       return;
     }
 

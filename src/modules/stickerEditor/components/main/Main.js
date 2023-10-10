@@ -13,6 +13,7 @@ import Player from "../player/Player";
 import {useSaveSticker} from "../../../../hooks/useSaveSticker";
 import axios from "axios";
 import Input from "../../../../ui/input/Input";
+import {appAlert, appPrompt} from "../../../userFeedback";
 
 const Main = () => {
   const { progress, isPaused, player, stickerName } = useSelector((state) => state.main);
@@ -27,10 +28,10 @@ const Main = () => {
     let templateName = player.name;
 
     if (!templateName) {
-      templateName = prompt("Create name for your sticker");
+      templateName = await appPrompt("Create name for your sticker");
 
       if (!templateName) {
-        alert('To save sticker you have to set name!');
+        await appAlert('To save sticker you have to set name!');
 
         return false;
       }
@@ -47,7 +48,7 @@ const Main = () => {
     await saveSticker(sticker);
 
     if (showAlert) {
-      alert('Your sticker was saved!');
+      await appAlert('Your sticker was saved!');
     }
 
     return true;

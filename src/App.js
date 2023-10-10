@@ -4,6 +4,7 @@ import Main from "./pages/main/Main";
 import {routes} from "./routes";
 import SavedStickers from "./pages/savedStickers/SavedStickers";
 import {useLayoutEffect} from "react";
+import {UserFeedback} from "./modules/userFeedback";
 
 function App() {
   useLayoutEffect(() => {
@@ -13,13 +14,16 @@ function App() {
   }, []);
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path={routes.stickerEditor} element={<StickerEditorPage />}/>
-        <Route path={routes.main} element={<Main />}/>
-        <Route path={routes.savedStickers} element={<SavedStickers />}/>
-      </Routes>
-    </BrowserRouter>
+    <>
+      <UserFeedback />
+      <BrowserRouter>
+        <Routes>
+          <Route path={routes.stickerEditor} element={<StickerEditorPage />}/>
+          <Route path={routes.main} element={<Main />}/>
+          <Route path={routes.savedStickers} element={<SavedStickers />}/>
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 }
 
