@@ -41,7 +41,7 @@ const bot = new TelegramBot(token, {polling: true});
 bot.on('message', (msg) => {
   const chatId = msg.chat.id;
 
-  bot.sendMessage(chatId, 'hey', {
+  bot.sendMessage(chatId, 'Hey! We are about to start, make sticker in app below and send results to the sticker bot!', {
     reply_markup: {
       inline_keyboard: [
         [{web_app: { url: process.env.WEB_APP_URL }, text: 'Open Stickernizer' }],

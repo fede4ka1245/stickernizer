@@ -9,7 +9,7 @@ const Main = () => {
   const navigate = useNavigate();
 
   const onAboutClick = useCallback(() => {
-    window.open(process.env.ABOUT_LINK);
+    window.open(process.env.REACT_APP_ABOUT_LINK);
   }, []);
 
   const onSavedStickersClick = useCallback(() => {
