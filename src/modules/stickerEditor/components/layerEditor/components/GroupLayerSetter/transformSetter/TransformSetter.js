@@ -1,40 +1,40 @@
 import React, {useCallback} from 'react';
 import {Grid} from "@mui/material";
-import InputNumber from "../../../../../../components/inputNumber/InputNumber";
+import InputNumber from "../../../../../../../components/inputNumber/InputNumber";
 
 const TransformSetter = ({ transformState, setTransformState }) => {
-  const setXPosition = useCallback((event) => {
+  const setXPosition = useCallback((value) => {
     setTransformState({
       ...transformState,
-      posX: event.target.value
+      posX: value
     })
   }, [transformState]);
 
-  const setYPosition = useCallback((event) => {
+  const setYPosition = useCallback((value) => {
     setTransformState({
       ...transformState,
-      posY: event.target.value
+      posY: value
     })
   }, [transformState]);
 
-  const setScaleX = useCallback((event) => {
+  const setScaleX = useCallback((value) => {
     setTransformState({
       ...transformState,
-      scaleX: event.target.value
+      scaleX: value
     })
   }, [transformState]);
 
-  const setScaleY = useCallback((event) => {
+  const setScaleY = useCallback((value) => {
     setTransformState({
       ...transformState,
-      scaleY: event.target.value
+      scaleY: value
     })
   }, [transformState]);
 
-  const setRotation = useCallback((event) => {
+  const setRotation = useCallback((value) => {
     setTransformState({
       ...transformState,
-      rotation: event.target.value
+      rotation: value
     })
   }, [transformState]);
 
@@ -42,6 +42,7 @@ const TransformSetter = ({ transformState, setTransformState }) => {
     <>
       <Grid mb={'var(--space-md)'}>
         <InputNumber
+          step={5}
           value={transformState.posX}
           fullWidth
           onChange={setXPosition}
@@ -51,6 +52,7 @@ const TransformSetter = ({ transformState, setTransformState }) => {
       </Grid>
       <Grid mb={'var(--space-md)'}>
         <InputNumber
+          step={5}
           fullWidth
           value={transformState.posY}
           type={'outline'}
@@ -60,6 +62,8 @@ const TransformSetter = ({ transformState, setTransformState }) => {
       </Grid>
       <Grid mb={'var(--space-md)'}>
         <InputNumber
+          step={0.1}
+          min={1}
           value={transformState.scaleX}
           onChange={setScaleX}
           fullWidth
@@ -69,8 +73,10 @@ const TransformSetter = ({ transformState, setTransformState }) => {
       </Grid>
       <Grid mb={'var(--space-md)'}>
         <InputNumber
+          step={0.1}
           value={transformState.scaleY}
           onChange={setScaleY}
+          min={1}
           fullWidth
           type={'outline'}
           label={'Scale Y'}
@@ -78,9 +84,12 @@ const TransformSetter = ({ transformState, setTransformState }) => {
       </Grid>
       <Grid mb={'var(--space-md)'}>
         <InputNumber
+          step={5}
           fullWidth
           type={'outline'}
           label={'Rotation'}
+          min={0}
+          max={360}
           value={transformState.rotation}
           onChange={setRotation}
         />

@@ -1,0 +1,14 @@
+.tappable {
+  user-select: none;
+  animation: opacity ease-in 0.2s;
+}
+
+.tappable:active {
+  opacity: 0.4;
+}
+
+@media (pointer: fine){
+  .tappable:hover {
+    cursor: pointer;
+  }
+}

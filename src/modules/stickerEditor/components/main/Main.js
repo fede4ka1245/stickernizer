@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {Grid} from "@mui/material";
 import Button from "../../../../ui/button/Button";
 import {useDispatch, useSelector} from "react-redux";
@@ -14,10 +14,12 @@ import {useSaveSticker} from "../../../../hooks/useSaveSticker";
 import axios from "axios";
 import Input from "../../../../ui/input/Input";
 import {appAlert, appPrompt} from "../../../userFeedback";
+import AppLoader from "../../../../ui/appLoader/AppLoader";
 
 const Main = () => {
   const { progress, isPaused, player, stickerName } = useSelector((state) => state.main);
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
 
   const {
     isLoading,
@@ -85,13 +87,21 @@ const Main = () => {
 
     axios({
       method: "post",
-      url: 'https://surdogram.ru/upload-sticker',
+      url: 'https://localhost:3030/upload-sticker',
       data: formData,
       headers: { "Content-Type": "multipart/form-data" },
-    });
+    })
+      .catch(async () => {
+        setLoading(false);
+        await appAlert("Unresolved error, something went wrong")
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }, []);
 
   const onDownload = useCallback(() => {
+    setLoading(true);
     dispatch(download(loadSticker));
   }, []);
 
@@ -103,6 +113,7 @@ const Main = () => {
 
   return (
     <>
+      <AppLoader loading={loading} />
       <Player
         init={initStickerEditor}
         progress={progress}

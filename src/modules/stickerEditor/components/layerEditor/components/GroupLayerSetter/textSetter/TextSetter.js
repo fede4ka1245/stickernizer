@@ -1,10 +1,9 @@
 import React, {useCallback} from 'react';
-import Input from "../../../../../../ui/input/Input";
-import {FormControlLabel, FormGroup, Grid, RadioGroup, Typography} from "@mui/material";
-import InputNumber from "../../../../../../components/inputNumber/InputNumber";
-import Radio from "../../../../../../ui/radio/Radio";
-import InputColorPicker from "../../../../../../components/inputColorPicker/InputColorPicker";
-import Checkbox from "../../../../../../ui/checkbox/Checkbox";
+import Input from "../../../../../../../ui/input/Input";
+import {FormControlLabel, Grid, RadioGroup, Typography} from "@mui/material";
+import InputNumber from "../../../../../../../components/inputNumber/InputNumber";
+import Radio from "../../../../../../../ui/radio/Radio";
+import InputColorPicker from "../../../../../../../components/inputColorPicker/InputColorPicker";
 
 const textAlign = [
   'start',
@@ -35,10 +34,10 @@ const TextSetter = ({ textSetterState, setTextSetterState }) => {
   }, [textSetterState]);
 
 
-  const onFontSizeChange = useCallback((event) => {
+  const onFontSizeChange = useCallback((value) => {
     setTextSetterState({
       ...textSetterState,
-      fontSize: event.target.value
+      fontSize: value
     })
   }, [textSetterState]);
 
@@ -55,6 +54,7 @@ const TextSetter = ({ textSetterState, setTextSetterState }) => {
       <Grid mt={'var(--space-md)'}>
         <InputNumber
           fullWidth
+          min={0}
           type={'outline'}
           label={'Font Size'}
           onChange={onFontSizeChange}

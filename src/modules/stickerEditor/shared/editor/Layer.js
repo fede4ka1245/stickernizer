@@ -1,38 +1,39 @@
+import {v4 as uuidv4} from "uuid";
+import {blankTimingSetter, blankTransformSetter, emptyLayerName} from "../../consts/layerConsts";
+
 export default class Layer {
-  constructor({
-    posX,
-    posY,
-    width,
-    height,
-    timingStart,
-    timingEnd,
-  }) {
-    this.timingStart = timingStart;
-    this.timingEnd = timingEnd;
-    this.width = width;
-    this.height = height;
-    this.posX = posX;
-    this.posY = posY;
-    this.id = String(Date.now() + posX + posY + timingEnd + timingStart + width + height);
+  constructor(params) {
+    this.layerName = params.layerName || emptyLayerName;
+    this.transformProps = { ...blankTransformSetter, ...params.transformProps };
+    this.timingProps = { ...blankTimingSetter, ...params.timingProps };
+    this.id = uuidv4();
+  }
+
+  _isRenderingTime(videoTiming) {
+    return this.timingProps.timingEnd >= videoTiming && this.timingProps.timingStart <= videoTiming;
+  }
+
+  _getObjectInternalTransform({ width, height, canvasWidth, canvasHeight }) {
+    if (width > height) {
+      return {
+        width: canvasWidth,
+        height: canvasHeight * (height / width),
+        posX: 0,
+        posY: (canvasHeight - canvasWidth * (height / width)) / 2
+      }
+    }
+
+    return {
+      height: canvasHeight,
+      width: canvasWidth * (width / height),
+      posY: 0,
+      posX: (canvasWidth - canvasHeight * (width / height)) / 2
+    }
   }
 
   goTo(canvas, videoTiming) {
     this.render(canvas, videoTiming);
   }
 
-  render(canvas, videoTiming) {
-    const newCanvas = document.createElement('canvas');
-    newCanvas.width = canvas.width;
-    newCanvas.height = canvas.height;
-    const context = newCanvas.getContext('2d');
-
-    if (this.timingEnd >= videoTiming && this.timingStart <= videoTiming) {
-      context.clearRect(0, 0, canvas.width, canvas.height);
-      context.rect(this.posX, this.posY, this.width, this.height);
-      context.fill();
-
-      const targetContext = canvas.getContext('2d');
-      targetContext.drawImage(newCanvas, 0, 0, canvas.width, canvas.height)
-    }
-  }
+  render(canvas, videoTiming) {}
 }

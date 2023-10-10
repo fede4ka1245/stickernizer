@@ -6,7 +6,7 @@ export default configureStore({
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware({
       serializableCheck: {
-        ignoredActions: ['main/addLayer', 'main/initModule', 'layer/initLayer', 'layer/setLayer'],
+        ignoredActions: ['main/addLayer', 'main/initModule','main/download', 'layer/initLayer', 'layer/setLayer'],
         ignoredPaths: ['main.player', 'main.canvas', 'layer.canvas', 'layer.layer', 'layer.layer', 'layer.player'],
       },
     })

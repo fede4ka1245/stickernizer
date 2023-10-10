@@ -1,20 +1,20 @@
 import React, {useCallback} from 'react';
 import {Grid} from "@mui/material";
-import InputNumber from "../../../../../../components/inputNumber/InputNumber";
-import {playerConsts} from "../../../../consts/playerConsts";
+import InputNumber from "../../../../../../../components/inputNumber/InputNumber";
+import {playerConsts} from "../../../../../consts/playerConsts";
 
 const TimingSetter = ({ timingState, setTimingState }) => {
-  const setTimingStart = useCallback((event) => {
+  const setTimingStart = useCallback((value) => {
     setTimingState({
       ...timingState,
-      timingStart: event.target.value
+      timingStart: value
     })
   }, [timingState]);
 
-  const setTimingEnd = useCallback((event) => {
+  const setTimingEnd = useCallback((value) => {
     setTimingState({
       ...timingState,
-      timingEnd: event.target.value
+      timingEnd: value
     })
   }, [timingState]);
 
@@ -23,7 +23,8 @@ const TimingSetter = ({ timingState, setTimingState }) => {
       <Grid mb={'var(--space-md)'}>
         <InputNumber
           min={0}
-          max={playerConsts.maxTiming}
+          step={5}
+          max={timingState.timingEnd}
           fullWidth
           value={timingState.timingStart}
           onChange={setTimingStart}
@@ -34,6 +35,7 @@ const TimingSetter = ({ timingState, setTimingState }) => {
       <Grid mb={'var(--space-md)'}>
         <InputNumber
           min={0}
+          step={5}
           max={playerConsts.maxTiming}
           fullWidth
           value={timingState.timingEnd}

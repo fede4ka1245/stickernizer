@@ -9,6 +9,16 @@ export const blankTextSetter = {
   strokeColor: '#000000'
 }
 
+export const blankImageSetter = {
+  image: ''
+}
+
+export const blankVideoSetter = {
+  videoLink: '',
+  timingStart: 0,
+  timingEnd: 3000
+}
+
 export const blankTimingSetter = {
   timingStart: 0,
   timingEnd: 3000
@@ -23,3 +33,9 @@ export const blankTransformSetter = {
 }
 
 export const emptyLayerName = 'New Layer';
+
+export const layerType = {
+  text: 'text',
+  video: 'video',
+  image: 'image'
+}

@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
+import React, {useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState} from 'react';
 import ListItem from "../../../../../ui/listItem/ListItem";
 import {Grid, Typography} from "@mui/material";
 import ReorderRoundedIcon from '@mui/icons-material/ReorderRounded';
@@ -13,10 +13,12 @@ import {setLayer} from "../../../store/slices/layer";
 import {tabs} from "../../../consts/tabs";
 import lodash from "lodash";
 import {appConfirm} from "../../../../userFeedback";
+import {playerConsts} from "../../../consts/playerConsts";
 
 const Layer = ({ layer, provided, snapshot }) => {
   const { player } = useSelector((state) => state.main);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [layerImage, setLayerImage] = useState('');
   const buttonMoreRef = useRef(null);
   const dispatch = useDispatch();
 
@@ -53,6 +55,22 @@ const Layer = ({ layer, provided, snapshot }) => {
     }
   }, [layer]);
 
+  useLayoutEffect(() => {
+    if (sessionStorage.getItem(layer.id)) {
+      setLayerImage(sessionStorage.getItem(layer.id));
+    }
+
+    const targetLayer = player.layers.find(({ id }) => layer.id === id);
+    const canvas = document.createElement('canvas');
+    canvas.height = playerConsts.canvasHeight;
+    canvas.width = playerConsts.canvasWidth;
+
+    targetLayer.render(canvas, targetLayer.timingProps.timingStart);
+    const image = canvas.toDataURL("image/jpeg", 0.3);
+    sessionStorage.setItem(layer.id, image);
+    setLayerImage(image);
+  }, []);
+
   useEffect(() => {
     if (snapshot.isDragging) {
       if (window.Telegram?.WebApp?.HapticFeedback?.impactOccurred) {
@@ -68,6 +86,7 @@ const Layer = ({ layer, provided, snapshot }) => {
     >
       <ListItem
         text={label}
+        image={layerImage}
         endListContent={<>
           <Grid display={'flex'} height={'inherit'} position={'relative'}>
             <Grid

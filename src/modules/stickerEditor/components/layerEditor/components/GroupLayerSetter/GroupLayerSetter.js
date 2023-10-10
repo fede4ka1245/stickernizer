@@ -1,16 +1,31 @@
 import React, {useCallback, useEffect, useLayoutEffect, useMemo, useState} from 'react';
-import {blankTextSetter, blankTimingSetter, blankTransformSetter} from "../../../../consts/layerConsts";
+import {
+  blankImageSetter,
+  blankTextSetter,
+  blankTimingSetter,
+  blankTransformSetter, blankVideoSetter
+} from "../../../../consts/layerConsts";
 import {Grid} from "@mui/material";
 import Tabs from "../../../../../../ui/tabs/Tabs";
 import Tab from "../../../../../../ui/tab/Tab";
-import TextSetter from "../textSetter/TextSetter";
-import TransformSetter from "../transformSetter/TransformSetter";
-import TimingSetter from "../timingSetter/TimingSetter";
+import TextSetter from "./textSetter/TextSetter";
+import TransformSetter from "./transformSetter/TransformSetter";
+import TimingSetter from "./timingSetter/TimingSetter";
 import {useDispatch, useSelector} from "react-redux";
 import {updateProperties} from "../../../../store/slices/layer";
-import TextStylingSetter from "../textStylingSetter/TextStylingSetter";
+import TextStylingSetter from "./textStylingSetter/TextStylingSetter";
+// import VideoSetter from "./videoSetter/VideoSetter";
+// import ImageSetter from "./imageSetter/ImageSetter";
 
 const tabs = {
+  // video: {
+  //   label: 'Video',
+  //   value: 'video'
+  // },
+  // image: {
+  //   label: 'Image',
+  //   value: 'image'
+  // },
   text: {
     label: 'Text',
     value: 'text',
@@ -26,7 +41,7 @@ const tabs = {
   timing: {
     label: 'Timing',
     value: 'timing'
-  }
+  },
 };
 
 const GroupLayerSetter = ({ type }) => {
@@ -34,7 +49,9 @@ const GroupLayerSetter = ({ type }) => {
   const [state, setState] = useState({
     textProps: blankTextSetter,
     timingProps: blankTimingSetter,
-    transformProps: blankTransformSetter
+    transformProps: blankTransformSetter,
+    imageProps: blankImageSetter,
+    videoProps: blankVideoSetter
   });
   const [tab, setTab] = useState(tabs.text);
   const activeTabs = useMemo(() => {
@@ -67,6 +84,12 @@ const GroupLayerSetter = ({ type }) => {
     })
   }, [state]);
 
+  const onVideoPropsChange = useCallback((videoProps) => {
+    setState({
+      ...state,
+      videoProps
+    })
+  }, [state]);
 
   useLayoutEffect(() => {
     if (layer) {
@@ -136,6 +159,15 @@ const GroupLayerSetter = ({ type }) => {
             setTextSetterState={onTextPropsChange}
           />
         )}
+        {/*{tab.value === tabs.video.value && (*/}
+        {/*  <VideoSetter*/}
+        {/*    videoSetterState={state.videoProps}*/}
+        {/*    setVideoSetterState={onVideoPropsChange}*/}
+        {/*  />*/}
+        {/*)}*/}
+        {/*{tab.value === tabs.image.value && (*/}
+        {/*  <ImageSetter />*/}
+        {/*)}*/}
       </Grid>
     </>
   );

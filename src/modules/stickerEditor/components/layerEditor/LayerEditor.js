@@ -19,14 +19,21 @@ import {
 import Button from "../../../../ui/button/Button";
 import GroupLayerSetter from "./components/GroupLayerSetter/GroupLayerSetter";
 import TextLayer from "../../shared/editor/TextLayer";
-import {blankTextSetter, blankTimingSetter, blankTransformSetter} from "../../consts/layerConsts";
+import {
+  blankTextSetter,
+  blankTimingSetter,
+  blankTransformSetter,
+  blankVideoSetter,
+  layerType
+} from "../../consts/layerConsts";
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import Tappable from "../../../../ui/tappable/Tappable";
 import {appConfirm, appPrompt} from "../../../userFeedback";
+import VideoLayer from "../../shared/editor/VideoLayer";
 
 const LayerEditor = () => {
   const dispatch = useDispatch();
-  const { progress, isPaused, layer, layerName } = useSelector((state) => state.layer);
+  const { progress, isPaused, layer, layerName, type } = useSelector((state) => state.layer);
 
   const onBackClick = useCallback(async () => {
     if (!await appConfirm("Are you sure you want to exit, the progress won't be saved!")) {
@@ -39,16 +46,35 @@ const LayerEditor = () => {
   const initTextLayerModule = useCallback((canvas) => {
     if (!canvas) return;
 
+    let layer;
+
+    console.log(type);
+
+    if (type === layerType.text) {
+      layer = new TextLayer({
+        textProps: blankTextSetter,
+        timingProps: blankTimingSetter,
+        transformProps: blankTransformSetter
+      });
+    } else if (type === layerType.video) {
+      layer = new VideoLayer({
+        videoProps: blankVideoSetter,
+        timingProps: blankTimingSetter,
+        transformProps: blankTransformSetter
+      });
+    } else {
+      layer = new VideoLayer({
+        videoProps: blankVideoSetter,
+        timingProps: blankTimingSetter,
+        transformProps: blankTransformSetter
+      });
+    }
     dispatch(initLayer({
       canvas,
       onProgressChange: ({ videoTiming, endVideoTiming }) => {
         dispatch(setLayerPlayerProgress(videoTiming / endVideoTiming * 100))
       },
-      layer: new TextLayer({
-        textProps: blankTextSetter,
-        timingProps: blankTimingSetter,
-        transformProps: blankTransformSetter
-      })
+      layer
     }));
   }, []);
 

@@ -1,18 +1,10 @@
 import Layer from "./Layer";
-import {blankTextSetter, blankTimingSetter, blankTransformSetter} from "../../consts/layerConsts";
+import {blankTextSetter} from "../../consts/layerConsts";
 
 export default class TextLayer extends Layer {
   constructor(params) {
     super(params);
-    this.layerName = params.layerName;
     this.textProps = { ...blankTextSetter, ...params.textProps };
-    this.transformProps = { ...blankTransformSetter, ...params.transformProps };
-    this.timingProps = { ...blankTimingSetter, ...params.timingProps };
-    this.id = String(Date.now() + Math.floor(Math.random() * 100));
-    // this.color = params.color || "#ffffff";
-    // this.fontSize = params.fontSize || 90;
-    // this.text = params.text || "Your text";
-    // this.fontFamlily = params.fontFamlily || "Georgia";
   }
 
   render(canvas, videoTiming) {
@@ -21,7 +13,7 @@ export default class TextLayer extends Layer {
     newCanvas.height = canvas.height;
     const context = newCanvas.getContext('2d');
 
-    if (this.timingProps.timingEnd >= videoTiming && this.timingProps.timingStart <= videoTiming) {
+    if (this._isRenderingTime(videoTiming)) {
       const fontArray = []
 
       if (this.textProps.textDecorations?.length) {

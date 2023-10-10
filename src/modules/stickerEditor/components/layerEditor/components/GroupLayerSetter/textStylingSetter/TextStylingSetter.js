@@ -1,14 +1,15 @@
 import React, {useCallback} from 'react';
 import {FormControlLabel, FormGroup, Grid, RadioGroup, Typography} from "@mui/material";
-import InputNumber from "../../../../../../components/inputNumber/InputNumber";
-import InputColorPicker from "../../../../../../components/inputColorPicker/InputColorPicker";
-import Radio from "../../../../../../ui/radio/Radio";
-import Checkbox from "../../../../../../ui/checkbox/Checkbox";
+import InputNumber from "../../../../../../../components/inputNumber/InputNumber";
+import InputColorPicker from "../../../../../../../components/inputColorPicker/InputColorPicker";
+import Radio from "../../../../../../../ui/radio/Radio";
+import Checkbox from "../../../../../../../ui/checkbox/Checkbox";
 
 const fonts = [
   'Arial',
   'Times New Roman',
-  'Courier New'
+  'Courier New',
+  'Titan One'
 ]
 
 const textDecorations = [
@@ -24,10 +25,10 @@ const TextStylingSetter = ({ textSetterState, setTextSetterState }) => {
     })
   }, [textSetterState]);
 
-  const onStrokeWidthChange = useCallback((event) => {
+  const onStrokeWidthChange = useCallback((value) => {
     setTextSetterState({
       ...textSetterState,
-      strokeWidth: event.target.value
+      strokeWidth: value
     });
   }, [textSetterState]);
 
@@ -42,6 +43,8 @@ const TextStylingSetter = ({ textSetterState, setTextSetterState }) => {
     <>
       <Grid>
         <InputNumber
+          step={0.2}
+          min={0}
           fullWidth
           type={'outline'}
           label={'Stroke width'}

@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import Player from "../../shared/editor/Player";
 import {throttle} from "lodash";
 import {playerConsts} from "../../consts/playerConsts";
-import {emptyLayerName} from "../../consts/layerConsts";
+import {emptyLayerName, layerType} from "../../consts/layerConsts";
 
 const initialState = {
   layerName: '',
@@ -11,13 +11,17 @@ const initialState = {
   isInit: false,
   canvas: null,
   layer: null,
-  player: null
+  player: null,
+  type: layerType.text
 };
 
 export const layerSlice = createSlice({
   name: 'layer',
   initialState,
   reducers: {
+    setLayerType: (state, action) => {
+      state.type = action.payload;
+    },
     initLayer: (state, action) => {
       state.isInit = true;
       action.payload.canvas.width = playerConsts.canvasWidth;
@@ -60,6 +64,8 @@ export const layerSlice = createSlice({
         state.layer.textProps = action.payload.textProps;
         state.layer.transformProps = action.payload.transformProps;
         state.layer.timingProps = action.payload.timingProps;
+        state.layer.imageProps = action.payload.imageProps;
+        state.layer.videoProps = action.payload.videoProps;
         state.player.goTo(state.player.videoTiming);
       }
     },
@@ -90,6 +96,6 @@ export const layerSlice = createSlice({
   },
 })
 
-export const { toggleIsLayerPlayerPaused, setLayer, changeLayerName, updateProperties, setLayerPlayerProgress, changeLayerPlayerTiming, initLayer, resetLayer } = layerSlice.actions
+export const { toggleIsLayerPlayerPaused, setLayerType, setLayer, changeLayerName, updateProperties, setLayerPlayerProgress, changeLayerPlayerTiming, initLayer, resetLayer } = layerSlice.actions
 
 export default layerSlice.reducer
