@@ -88,7 +88,13 @@ export const mainSlice = createSlice({
         state.isInit = false;
       }
     },
-    resetWorkspace: () => initialState
+    resetWorkspace: (state) => {
+      if (state.player) {
+        state.player.destroy();
+      }
+
+      return initialState;
+    }
   },
 })
 

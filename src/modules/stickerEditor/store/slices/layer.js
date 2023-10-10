@@ -80,7 +80,13 @@ export const layerSlice = createSlice({
         state.player.play();
       }
     },
-    resetLayer: () => initialState,
+    resetLayer: (state) => {
+      if (state.player) {
+        state.player.destroy();
+      }
+
+      return initialState;
+    },
   },
 })
 

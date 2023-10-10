@@ -81,12 +81,8 @@ const LayerEditor = () => {
     };
   }, []);
 
-  const onTouchMove = useCallback((event) => {
-    event.stopPropagation();
-  }, []);
-
   return (
-    <Grid onTouchMove={onTouchMove} onTouchStart={onTouchMove} onTouchMoveCapture={onTouchMove} display={'flex'} flexDirection={'column'} height={'100vh'}>
+    <Grid display={'flex'} flexDirection={'column'} height={'100vh'}>
       <ButtonBackPanel
         onButtonBackClick={onBackClick}
       >

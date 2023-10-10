@@ -11,7 +11,7 @@ export default class Player {
     this.listeners = {};
     this.layers = [];
     this.id = uuidv4();
-    window.requestAnimationFrame(this.update.bind(this));
+    this.animationId = window.requestAnimationFrame(this.update.bind(this));
   }
 
   stop() {
@@ -37,7 +37,7 @@ export default class Player {
   update(time) {
     this.time = time;
     if (this.playing === false) {
-      window.requestAnimationFrame(this.update.bind(this));
+      this.animationId = window.requestAnimationFrame(this.update.bind(this));
       if (this.timeStart) {
         this.timeStart = time - this.videoTiming;
       }
@@ -70,7 +70,7 @@ export default class Player {
         endVideoTiming: this.endVideoTiming
       });
     }
-    window.requestAnimationFrame(this.update.bind(this));
+    this.animationId = window.requestAnimationFrame(this.update.bind(this));
   }
 
   onEnd(func) {
@@ -78,7 +78,6 @@ export default class Player {
   }
 
   download(onDownload) {
-    console.log(onDownload);
     const stream = this.canvas.captureStream();
 
     let recorder = RecordRTC(stream, {
@@ -137,6 +136,10 @@ export default class Player {
 
   removeListener(id) {
     delete this.listeners[id];
+  }
+
+  destroy() {
+    window.cancelAnimationFrame(this.animationId);
   }
 
   getLayers() {
