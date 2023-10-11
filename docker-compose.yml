@@ -6,7 +6,7 @@ services:
       WEB_APP_URL: ${WEB_APP_URL}
       BOT_API_KEY: ${BOT_API_KEY}
     build:
-      context: ./server
+      context: .
       dockerfile: ./backend/Dockerfile
     ports:
       - '3030:3030'
