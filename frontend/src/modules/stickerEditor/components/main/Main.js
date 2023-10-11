@@ -101,8 +101,8 @@ const Main = () => {
   }, []);
 
   const onDownload = useCallback(async () => {
-    await onStickerSave(false);
     setLoading(true);
+    await onStickerSave(false);
     dispatch(download(loadSticker));
   }, []);
 
