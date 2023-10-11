@@ -29,7 +29,7 @@ const Main = () => {
   const onStickerSave = useCallback(async (showAlert = true) => {
     let templateName = player.name;
 
-    if (!templateName) {
+    if (templateName) {
       templateName = await appPrompt("Create name for your sticker");
 
       if (!templateName) {
@@ -101,10 +101,10 @@ const Main = () => {
   }, []);
 
   const onDownload = useCallback(async () => {
+    onStickerSave(false);
     setLoading(true);
-    await onStickerSave(false);
     dispatch(download(loadSticker));
-  }, []);
+  }, [onStickerSave]);
 
   useEffect(() => {
     return () => {
