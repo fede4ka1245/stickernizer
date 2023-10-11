@@ -28,14 +28,13 @@ export const mainSlice = createSlice({
       state.canvas = action.payload.canvas;
       if (!state.player) {
         state.player = new Player(action.payload.canvas);
+        state.stickerName = 'Default name';
+        state.player.name = state.stickerName;
       } else {
         state.player.canvas = action.payload.canvas;
         state.isPaused = true;
         state.player.goTo(state.player.videoTiming);
       }
-
-      state.stickerName = 'Default name';
-      state.player.name = state.stickerName;
 
       if (action.payload.onProgressChange) {
         state.player.addListener(throttle(action.payload.onProgressChange, 200));

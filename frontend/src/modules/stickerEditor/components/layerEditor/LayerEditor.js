@@ -46,35 +46,36 @@ const LayerEditor = () => {
   const initTextLayerModule = useCallback((canvas) => {
     if (!canvas) return;
 
-    let layer;
+    let newLayer = layer;
 
-    console.log(type);
-
-    if (type === layerType.text) {
-      layer = new TextLayer({
-        textProps: blankTextSetter,
-        timingProps: blankTimingSetter,
-        transformProps: blankTransformSetter
-      });
-    } else if (type === layerType.video) {
-      layer = new VideoLayer({
-        videoProps: blankVideoSetter,
-        timingProps: blankTimingSetter,
-        transformProps: blankTransformSetter
-      });
-    } else {
-      layer = new VideoLayer({
-        videoProps: blankVideoSetter,
-        timingProps: blankTimingSetter,
-        transformProps: blankTransformSetter
-      });
+    if (!layer) {
+      if (type === layerType.text) {
+        newLayer = new TextLayer({
+          textProps: blankTextSetter,
+          timingProps: blankTimingSetter,
+          transformProps: blankTransformSetter
+        });
+      } else if (type === layerType.video) {
+        newLayer = new VideoLayer({
+          videoProps: blankVideoSetter,
+          timingProps: blankTimingSetter,
+          transformProps: blankTransformSetter
+        });
+      } else {
+        newLayer = new VideoLayer({
+          videoProps: blankVideoSetter,
+          timingProps: blankTimingSetter,
+          transformProps: blankTransformSetter
+        });
+      }
     }
+
     dispatch(initLayer({
       canvas,
       onProgressChange: ({ videoTiming, endVideoTiming }) => {
         dispatch(setLayerPlayerProgress(videoTiming / endVideoTiming * 100))
       },
-      layer
+      layer: newLayer
     }));
   }, []);
 

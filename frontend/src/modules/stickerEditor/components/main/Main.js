@@ -100,7 +100,8 @@ const Main = () => {
       });
   }, []);
 
-  const onDownload = useCallback(() => {
+  const onDownload = useCallback(async () => {
+    await onStickerSave(false);
     setLoading(true);
     dispatch(download(loadSticker));
   }, []);

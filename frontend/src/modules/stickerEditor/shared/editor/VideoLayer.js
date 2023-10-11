@@ -32,8 +32,6 @@ export default class VideoLayer extends Layer {
   }
 
   render(canvas, videoTiming) {
-    console.log(this.video?.videoWidth, +this.videoProps.timingEnd - +this.videoProps.timingStart);
-
     if (!this.video?.src || !this.video.videoWidth) {
       return;
     }

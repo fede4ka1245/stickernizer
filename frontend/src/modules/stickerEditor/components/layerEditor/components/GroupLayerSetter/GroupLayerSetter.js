@@ -1,10 +1,4 @@
-import React, {useCallback, useEffect, useLayoutEffect, useMemo, useState} from 'react';
-import {
-  blankImageSetter,
-  blankTextSetter,
-  blankTimingSetter,
-  blankTransformSetter, blankVideoSetter
-} from "../../../../consts/layerConsts";
+import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import {Grid} from "@mui/material";
 import Tabs from "../../../../../../ui/tabs/Tabs";
 import Tab from "../../../../../../ui/tab/Tab";
@@ -46,13 +40,7 @@ const tabs = {
 
 const GroupLayerSetter = ({ type }) => {
   const dispatch = useDispatch();
-  const [state, setState] = useState({
-    textProps: blankTextSetter,
-    timingProps: blankTimingSetter,
-    transformProps: blankTransformSetter,
-    imageProps: blankImageSetter,
-    videoProps: blankVideoSetter
-  });
+  const [state, setState] = useState();
   const [tab, setTab] = useState(tabs.text);
   const activeTabs = useMemo(() => {
     return Object.values(tabs);
@@ -60,46 +48,40 @@ const GroupLayerSetter = ({ type }) => {
   const { layer } = useSelector((state) => state.layer);
 
   const onTabChange = useCallback((_, newTab) => {
-    setTab(tabs[newTab])
+    setTab(tabs[newTab]);
+  }, []);
+
+  const updateState = useCallback((state) => {
+    dispatch(updateProperties(state));
+    setState(state);
   }, []);
 
   const onTextPropsChange = useCallback((textProps) => {
-    setState({
+    updateState({
       ...state,
       textProps
     })
   }, [state]);
 
   const onTimingPropsChange = useCallback((timingProps) => {
-    setState({
+    updateState({
       ...state,
       timingProps
     })
   }, [state]);
 
   const onTransformPropsChange = useCallback((transformProps) => {
-    setState({
+    updateState({
       ...state,
       transformProps
     })
   }, [state]);
 
-  const onVideoPropsChange = useCallback((videoProps) => {
-    setState({
-      ...state,
-      videoProps
-    })
-  }, [state]);
-
-  useLayoutEffect(() => {
-    if (layer) {
-      setState(JSON.parse(JSON.stringify(layer)));
-    }
-  }, []);
-
   useEffect(() => {
-    dispatch(updateProperties(state));
-  }, [state]);
+    if (layer) {
+      updateState(JSON.parse(JSON.stringify(layer)));
+    }
+  }, [layer]);
 
   const onTouchMove = useCallback((event) => {
     event.stopPropagation();
@@ -125,7 +107,7 @@ const GroupLayerSetter = ({ type }) => {
           ))}
         </Tabs>
       </Grid>
-      <Grid
+      {state && <Grid
         border={'var(--element-border)'}
         borderRadius={'var(--border-radius-lg)'}
         backgroundColor={'var(--bg-color)'}
@@ -168,7 +150,7 @@ const GroupLayerSetter = ({ type }) => {
         {/*{tab.value === tabs.image.value && (*/}
         {/*  <ImageSetter />*/}
         {/*)}*/}
-      </Grid>
+      </Grid>}
     </>
   );
 };
