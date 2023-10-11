@@ -27,7 +27,7 @@ const Main = () => {
   } = useSaveSticker();
 
   const onStickerSave = useCallback(async (showAlert = true) => {
-    let templateName = player.name;
+    let templateName = player.name || player.id;
 
     if (templateName) {
       templateName = await appPrompt("Create name for your sticker");
@@ -101,7 +101,12 @@ const Main = () => {
   }, []);
 
   const onDownload = useCallback(async () => {
-    onStickerSave(false);
+    const sticker = {
+      id: player.id,
+      layers: player.getLayers(),
+      name: player.name || player.id
+    }
+    await saveSticker(sticker);
     setLoading(true);
     dispatch(download(loadSticker));
   }, [onStickerSave]);
