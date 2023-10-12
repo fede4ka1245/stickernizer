@@ -13,7 +13,7 @@ import Player from "../player/Player";
 import {useSaveSticker} from "../../../../hooks/useSaveSticker";
 import axios from "axios";
 import Input from "../../../../ui/input/Input";
-import {appAlert, appPrompt} from "../../../userFeedback";
+import {appAlert} from "../../../userFeedback";
 import AppLoader from "../../../../ui/appLoader/AppLoader";
 
 const Main = () => {
@@ -75,7 +75,7 @@ const Main = () => {
 
     axios({
       method: "post",
-      url: `${process.env.REACT_APP_API_URL}/upload-sticker`,
+      url: `https://back.stickernizer.space/upload-sticker`,
       data: formData,
       headers: { "Content-Type": "multipart/form-data" },
     })
