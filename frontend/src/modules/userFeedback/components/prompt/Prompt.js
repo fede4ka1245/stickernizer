@@ -1,5 +1,5 @@
-import React, {useCallback, useEffect, useRef, useState} from 'react';
-import {Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle} from "../../../../ui/dialog";
+import React, {useCallback, useEffect, useState} from 'react';
+import {Dialog, DialogActions, DialogContent, DialogTitle} from "../../../../ui/dialog";
 import Button from "../../../../ui/button/Button";
 import Input from "../../../../ui/input/Input";
 import {Grid} from "@mui/material";
@@ -39,6 +39,7 @@ const Prompt = () => {
       isOpen: false,
       text: ''
     });
+    setValue("");
     eventBus.emit(eventBusEvent.onPromptClosed, null, false);
   }, []);
 
@@ -47,6 +48,7 @@ const Prompt = () => {
       isOpen: false,
       text: ''
     });
+    setValue("");
     eventBus.emit(eventBusEvent.onPromptClosed, null, value);
   }, [value]);
 

@@ -20,34 +20,34 @@ const InputNumber = ({ value, onChange, max, min, step = 1, onValueChange, label
 
   const onInputUp = useCallback(() => {
     setInputValue((value) => {
-      if (value === max) {
+      if (+value === max) {
         return value;
       }
 
-      return Number((value + step).toFixed(1));
+      return Number((+value + step).toFixed(1));
     })
   }, [max, step]);
 
   const onInputDown = useCallback(() => {
     setInputValue((value) => {
-      if (value === min) {
+      if (+value === min) {
         return value;
       }
 
-      return Number((value - step).toFixed(1));
+      return Number((+value - step).toFixed(1));
     })
   }, [min, step]);
 
   useEffect(() => {
-    if (max && inputValue > max) {
+    if (max && Number(inputValue) > max) {
       setInputValue(max);
       return;
-    } else if (min && inputValue < min) {
+    } else if (min && Number(inputValue) < min) {
       setInputValue(min)
       return;
     }
 
-    onChange(inputValue);
+    onChange(Number(inputValue));
   }, [inputValue]);
 
   const onInputChange = useCallback((event) => {
