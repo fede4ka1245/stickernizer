@@ -32,12 +32,12 @@ const Layers = () => {
   const dispatch = useDispatch();
 
   const onAddLayer = useCallback(async (type) => {
-    if (type !== layerType.text) {
+    if (type === layerType.video) {
       await appAlert('This layer type currently not supported!');
       return;
     }
 
-    dispatch(setLayerType(type || layerType.text))
+    dispatch(setLayerType(type))
     dispatch(openTab(tabs.layer));
   }, []);
 
@@ -159,18 +159,6 @@ const Layers = () => {
               Add Text Layer
             </Typography>
           </Tappable>
-          <Tappable onClick={() => onAddLayer('video')}>
-            <Typography
-              fontSize={'var(--font-size-md)'}
-              lineHeight={'var(--font-size-lg)'}
-              fontWeight={'bold'}
-              color={'var(--hint-color)'}
-              pt={'var(--space-md)'}
-              pb={'var(--space-md)'}
-            >
-              Add Video Layer
-            </Typography>
-          </Tappable>
           <Tappable onClick={() => onAddLayer('image')}>
             <Typography
               fontSize={'var(--font-size-md)'}
@@ -181,6 +169,18 @@ const Layers = () => {
               pb={'var(--space-md)'}
             >
               Add Image Layer
+            </Typography>
+          </Tappable>
+          <Tappable onClick={() => onAddLayer('video')}>
+            <Typography
+              fontSize={'var(--font-size-md)'}
+              lineHeight={'var(--font-size-lg)'}
+              fontWeight={'bold'}
+              color={'var(--hint-color)'}
+              pt={'var(--space-md)'}
+              pb={'var(--space-md)'}
+            >
+              Add Video Layer
             </Typography>
           </Tappable>
         </Grid>

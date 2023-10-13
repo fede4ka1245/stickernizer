@@ -20,6 +20,7 @@ import Button from "../../../../ui/button/Button";
 import GroupLayerSetter from "./components/GroupLayerSetter/GroupLayerSetter";
 import TextLayer from "../../shared/editor/TextLayer";
 import {
+  blankImageSetter,
   blankTextSetter,
   blankTimingSetter,
   blankTransformSetter,
@@ -30,6 +31,7 @@ import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import Tappable from "../../../../ui/tappable/Tappable";
 import {appConfirm, appPrompt} from "../../../userFeedback";
 import VideoLayer from "../../shared/editor/VideoLayer";
+import ImageLayer from "../../shared/editor/ImageLayer";
 
 const LayerEditor = () => {
   const dispatch = useDispatch();
@@ -62,8 +64,8 @@ const LayerEditor = () => {
           transformProps: blankTransformSetter
         });
       } else {
-        newLayer = new VideoLayer({
-          videoProps: blankVideoSetter,
+        newLayer = new ImageLayer({
+          imageProps: blankImageSetter,
           timingProps: blankTimingSetter,
           transformProps: blankTransformSetter
         });

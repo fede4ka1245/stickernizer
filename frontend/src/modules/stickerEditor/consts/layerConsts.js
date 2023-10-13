@@ -10,7 +10,7 @@ export const blankTextSetter = {
 }
 
 export const blankImageSetter = {
-  image: ''
+  src: ''
 }
 
 export const blankVideoSetter = {
