@@ -91,8 +91,8 @@ const Main = () => {
   const onDownload = useCallback(async () => {
     const sticker = {
       id: player.id,
-      layers: player.getLayers(),
-      name: player.name || player.id
+      layers: [...player.getLayers()].map((layer) => layer.getResolvedLayer()),
+      name: player.name || player.id,
     }
     await saveSticker(sticker);
     setLoading(true);
