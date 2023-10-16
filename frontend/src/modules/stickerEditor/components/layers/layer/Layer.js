@@ -65,11 +65,13 @@ const Layer = ({ layer, provided, snapshot }) => {
     canvas.height = playerConsts.canvasHeight;
     canvas.width = playerConsts.canvasWidth;
 
-    targetLayer.render(canvas, targetLayer.timingProps.timingStart);
-    const image = canvas.toDataURL("image/jpeg", 0.3);
-    sessionStorage.setItem(layer.id, image);
-    setLayerImage(image);
-  }, []);
+    if (targetLayer) {
+      targetLayer.render(canvas, targetLayer.props.timingProps.timingStart);
+      const image = canvas.toDataURL("image/jpeg", 0.3);
+      sessionStorage.setItem(layer.id, image);
+      setLayerImage(image);
+    }
+  }, [layer]);
 
   useEffect(() => {
     if (snapshot.isDragging) {

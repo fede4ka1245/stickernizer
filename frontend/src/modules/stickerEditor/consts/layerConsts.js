@@ -14,9 +14,10 @@ export const blankImageSetter = {
 }
 
 export const blankVideoSetter = {
-  videoLink: '',
+  src: '',
   timingStart: 0,
-  timingEnd: 3000
+  timingEnd: 3000,
+  fps: 27,
 }
 
 export const blankTimingSetter = {

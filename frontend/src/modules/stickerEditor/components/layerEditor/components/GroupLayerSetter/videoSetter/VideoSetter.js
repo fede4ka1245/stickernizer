@@ -1,14 +1,25 @@
 import React, {useCallback} from 'react';
 import {Grid, Typography} from "@mui/material";
 import InputNumber from "../../../../../../../components/inputNumber/InputNumber";
+import {appAlert} from "../../../../../../userFeedback";
 
 const VideoSetter = ({ videoSetterState, setVideoSetterState }) => {
-  const onVideoChange = useCallback((event) => {
+  const onVideoChange = useCallback(async (event) => {
     const URL = window.URL || window.webkitURL;
     const file = event.target.files[0];
+
+    if (!file) {
+      return;
+    }
+
+    if (file.size / 1024 / 1024 >= 10) {
+      await appAlert('The file is to large');
+      return;
+    }
+
     setVideoSetterState({
       ...videoSetterState,
-      videoLink: URL.createObjectURL(file)
+      src: URL.createObjectURL(file)
     });
   }, [videoSetterState]);
 
@@ -65,7 +76,7 @@ const VideoSetter = ({ videoSetterState, setVideoSetterState }) => {
         lineHeight={'var(--font-size-sm)'}
         color={'var(--hint-color)'}
       >
-        Video and images layers saving currently not supported. This layer won't be saved!
+        Saving video and image layers is currently not supported. This layer will not be saved!
       </Typography>
     </>
   );

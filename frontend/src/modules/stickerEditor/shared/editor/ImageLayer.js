@@ -1,25 +1,29 @@
 import Layer from "./Layer";
 import {blankImageSetter} from "../../consts/layerConsts";
-import lodash from "lodash";
 
 export default class ImageLayer extends Layer {
   constructor(params) {
     super(params);
-    this.imageProps = { ...blankImageSetter, ...params.imageProps };
-    this.transformProps.posX = 0;
-    this.transformProps.posY = 0;
+    this.props.imageProps = { ...blankImageSetter, ...params.imageProps };
+    this.props.transformProps.posX = 0;
+    this.props.transformProps.posY = 0;
+
+    this.props = new Proxy(this.props, {
+      set: ((target, prop, newValue, receiver) => {
+        if (prop === 'imageProps' && newValue?.src && this.img?.src !== newValue?.src) {
+          this.img = new Image();
+          this.img.src = newValue.src;
+        } else if (prop === 'imageProps' && newValue?.src && this.img?.src === newValue?.src) {
+          return Reflect.set(...arguments);
+        }
+
+        target[prop] = newValue;
+
+        return Reflect.set(...arguments);
+      }).bind(this)
+    })
   }
 
-  set imageProps(props) {
-    if (lodash.isEqual(this.imageProps, props)) {
-      return;
-    }
-
-    if (props?.src) {
-      this.img = new Image();
-      this.img.src = props?.src;
-    }
-  }
   render(canvas, videoTiming) {
     if (!this.img?.complete) {
       if (this.img) {
@@ -54,10 +58,10 @@ export default class ImageLayer extends Layer {
       const targetContext = canvas.getContext('2d');
       targetContext.drawImage(
         newCanvas,
-        videoInternalTransform.posX + this.transformProps.posX - (videoInternalTransform.width * (this.transformProps.scaleX || 1) - videoInternalTransform.width) / 2,
-        videoInternalTransform.posY + this.transformProps.posY - (videoInternalTransform.height * (this.transformProps.scaleY || 1) - videoInternalTransform.height) / 2,
-        videoInternalTransform.width * (this.transformProps.scaleX || 1),
-        videoInternalTransform.height * (this.transformProps.scaleY || 1)
+        videoInternalTransform.posX + this.props.transformProps.posX - (videoInternalTransform.width * (this.props.transformProps.scaleX || 1) - videoInternalTransform.width) / 2,
+        videoInternalTransform.posY + this.props.transformProps.posY - (videoInternalTransform.height * (this.props.transformProps.scaleY || 1) - videoInternalTransform.height) / 2,
+        videoInternalTransform.width * (this.props.transformProps.scaleX || 1),
+        videoInternalTransform.height * (this.props.transformProps.scaleY || 1)
       );
 
       context.setTransform(1, 0, 0, 1, 0, 0);

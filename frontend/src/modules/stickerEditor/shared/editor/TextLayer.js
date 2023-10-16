@@ -4,7 +4,7 @@ import {blankTextSetter} from "../../consts/layerConsts";
 export default class TextLayer extends Layer {
   constructor(params) {
     super(params);
-    this.textProps = { ...blankTextSetter, ...params.textProps };
+    this.props.textProps = { ...blankTextSetter, ...params.textProps };
   }
 
   render(canvas, videoTiming) {
@@ -16,38 +16,38 @@ export default class TextLayer extends Layer {
     if (this._isRenderingTime(videoTiming)) {
       const fontArray = []
 
-      if (this.textProps.textDecorations?.length) {
-        fontArray.push(...this.textProps.textDecorations);
+      if (this.props.textProps.textDecorations?.length) {
+        fontArray.push(...this.props.textProps.textDecorations);
       }
 
-      fontArray.push(`${this.textProps.fontSize}px`, this.textProps.fontFamily);
+      fontArray.push(`${this.props.textProps.fontSize}px`, this.props.textProps.fontFamily);
 
-      context.save()
+      context.save();
 
       context.font = fontArray.join(' ');
-      context.fillStyle = this.textProps.color;
-      context.textAlign = this.textProps.textAlign;
-      const metrics = context.measureText(this.textProps.text);
+      context.fillStyle = this.props.textProps.color;
+      context.textAlign = this.props.textProps.textAlign;
+      const metrics = context.measureText(this.props.textProps.text);
       const actualHeight = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
-      context.translate(this.transformProps.posX, this.transformProps.posY - actualHeight / 2);
-      context.rotate(this.transformProps.rotation * Math.PI / 180);
-      context.translate(-this.transformProps.posX, -(this.transformProps.posY - actualHeight / 2));
-      context.scale(this.transformProps.scaleX || 1, this.transformProps.scaleY || 1);
-      context.fillText(this.textProps.text, this.transformProps.posX, Number(this.transformProps.posY));
+      context.translate(this.props.transformProps.posX, this.props.transformProps.posY - actualHeight / 2);
+      context.rotate(this.props.transformProps.rotation * Math.PI / 180);
+      context.translate(-this.props.transformProps.posX, -(this.props.transformProps.posY - actualHeight / 2));
+      context.scale(this.props.transformProps.scaleX || 1, this.props.transformProps.scaleY || 1);
+      context.fillText(this.props.textProps.text, this.props.transformProps.posX, Number(this.props.transformProps.posY));
 
-      if (this.textProps.strokeWidth !== 0) {
-        context.strokeStyle = this.textProps.strokeColor || 'black';
-        context.lineWidth = this.textProps.strokeWidth;
-        context.strokeText(this.textProps.text, this.transformProps.posX, Number(this.transformProps.posY))
+      if (this.props.textProps.strokeWidth !== 0) {
+        context.strokeStyle = this.props.textProps.strokeColor || 'black';
+        context.lineWidth = this.props.textProps.strokeWidth;
+        context.strokeText(this.props.textProps.text, this.props.transformProps.posX, Number(this.props.transformProps.posY))
       }
 
       const targetContext = canvas.getContext('2d');
       targetContext.drawImage(
         newCanvas,
-        -(canvas.width * (this.transformProps.scaleX || 1) - canvas.width),
-        -(canvas.height * (this.transformProps.scaleX || 1) - canvas.height),
-        canvas.width * (this.transformProps.scaleX || 1),
-        canvas.height * (this.transformProps.scaleY || 1)
+        -(canvas.width * (this.props.transformProps.scaleX || 1) - canvas.width),
+        -(canvas.height * (this.props.transformProps.scaleX || 1) - canvas.height),
+        canvas.width * (this.props.transformProps.scaleX || 1),
+        canvas.height * (this.props.transformProps.scaleY || 1)
       );
 
       context.setTransform(1, 0, 0, 1, 0, 0);

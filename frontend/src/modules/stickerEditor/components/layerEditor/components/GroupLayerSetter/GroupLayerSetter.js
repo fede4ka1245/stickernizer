@@ -11,13 +11,14 @@ import TextStylingSetter from "./textStylingSetter/TextStylingSetter";
 import ImageSetter from "./imageSetter/ImageSetter";
 import ImageLayer from "../../../../shared/editor/ImageLayer";
 import TextLayer from "../../../../shared/editor/TextLayer";
-// import VideoSetter from "./videoSetter/VideoSetter";
+import VideoSetter from "./videoSetter/VideoSetter";
+import VideoLayer from "../../../../shared/editor/VideoLayer";
 
 const tabs = {
-  // video: {
-  //   label: 'Video',
-  //   value: 'video'
-  // },
+  video: {
+    label: 'Video',
+    value: 'video'
+  },
   image: {
     label: 'Image',
     value: 'image'
@@ -50,6 +51,8 @@ const GroupLayerSetter = () => {
       return [tabs.text, tabs.textStyling, tabs.transform, tabs.timing];
     } else if (layer instanceof ImageLayer) {
       return [tabs.image, tabs.transform, tabs.timing];
+    } else if (layer instanceof VideoLayer) {
+      return [tabs.video, tabs.transform, tabs.timing];
     }
 
     return [];
@@ -85,6 +88,13 @@ const GroupLayerSetter = () => {
     })
   }, [state]);
 
+  const onVideoPropsChange = useCallback((videoProps) => {
+    updateState({
+      ...state,
+      videoProps
+    })
+  }, [state]);
+
   const onImagePropsChange = useCallback((imageProps) => {
     updateState({
       ...state,
@@ -94,12 +104,14 @@ const GroupLayerSetter = () => {
 
   useLayoutEffect(() => {
     if (layer) {
-      updateState(JSON.parse(JSON.stringify(layer)));
+      updateState(layer.getResolvedLayer());
 
       if (layer instanceof TextLayer) {
         setTab(tabs.text);
       } else if (layer instanceof ImageLayer) {
         setTab(tabs.image);
+      } else if (layer instanceof VideoLayer) {
+        setTab(tabs.video);
       }
     }
   }, [layer]);
@@ -163,12 +175,12 @@ const GroupLayerSetter = () => {
               setTextSetterState={onTextPropsChange}
             />
           )}
-          {/*{tab.value === tabs.video.value && (*/}
-          {/*  <VideoSetter*/}
-          {/*    videoSetterState={state.videoProps}*/}
-          {/*    setVideoSetterState={onVideoPropsChange}*/}
-          {/*  />*/}
-          {/*)}*/}
+          {tab.value === tabs.video.value && (
+            <VideoSetter
+              videoSetterState={state.videoProps}
+              setVideoSetterState={onVideoPropsChange}
+            />
+          )}
           {tab.value === tabs.image.value && (
             <ImageSetter
               imageSetterState={state.imageProps}

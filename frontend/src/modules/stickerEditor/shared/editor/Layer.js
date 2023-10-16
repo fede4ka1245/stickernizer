@@ -3,14 +3,15 @@ import {blankTimingSetter, blankTransformSetter, emptyLayerName} from "../../con
 
 export default class Layer {
   constructor(params) {
-    this.layerName = params.layerName || emptyLayerName;
-    this.transformProps = { ...blankTransformSetter, ...params.transformProps };
-    this.timingProps = { ...blankTimingSetter, ...params.timingProps };
+    this.props = {};
+    this.props.transformProps = { ...blankTransformSetter, ...params.transformProps };
+    this.props.timingProps = { ...blankTimingSetter, ...params.timingProps };
     this.id = uuidv4();
+    this.layerName = params.layerName || emptyLayerName;
   }
 
   _isRenderingTime(videoTiming) {
-    return this.timingProps.timingEnd >= videoTiming && this.timingProps.timingStart <= videoTiming;
+    return this.props?.timingProps?.timingEnd >= videoTiming && this.props?.timingProps?.timingStart <= videoTiming;
   }
 
   _getObjectInternalTransform({ width, height, canvasWidth, canvasHeight }) {
@@ -28,6 +29,14 @@ export default class Layer {
       width: canvasWidth * (width / height),
       posY: 0,
       posX: (canvasWidth - canvasHeight * (width / height)) / 2
+    }
+  }
+
+  getResolvedLayer() {
+    return {
+      ...this.props,
+      id: this.id,
+      layerName: this.layerName
     }
   }
 

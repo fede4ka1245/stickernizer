@@ -31,7 +31,7 @@ const Main = () => {
 
     const sticker = {
       id: player.id,
-      layers: player.getLayers(),
+      layers: [...player.getLayers()].map((layer) => layer.getResolvedLayer()),
       name: templateName
     }
 

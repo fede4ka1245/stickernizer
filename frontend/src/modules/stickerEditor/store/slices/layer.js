@@ -50,8 +50,8 @@ export const layerSlice = createSlice({
         state.layerName = state.layer.layerName;
       }
       state.player.addLayer(state.layer);
-      state.player.goTo(state.layer.timingProps.timingStart);
-      state.progress = state.layer.timingProps.timingStart / state.player.endVideoTiming * 100;
+      state.player.goTo(state.layer.props.timingProps?.timingStart);
+      state.progress = state.layer.props.timingProps?.timingStart / state.player.endVideoTiming * 100;
     },
     setLayer: (state, action) => {
       state.layer = action.payload;
@@ -61,11 +61,11 @@ export const layerSlice = createSlice({
     },
     updateProperties: (state, action) => {
       if (state.layer) {
-        state.layer.textProps = action.payload.textProps;
-        state.layer.transformProps = action.payload.transformProps;
-        state.layer.timingProps = action.payload.timingProps;
-        state.layer.imageProps = action.payload.imageProps;
-        state.layer.videoProps = action.payload.videoProps;
+        state.layer.props.textProps = action.payload.textProps;
+        state.layer.props.transformProps = action.payload.transformProps;
+        state.layer.props.videoProps = action.payload.videoProps;
+        state.layer.props.timingProps = action.payload.timingProps;
+        state.layer.props.imageProps = action.payload.imageProps;
         state.player.goTo(state.player.videoTiming);
       }
     },

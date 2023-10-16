@@ -10,4 +10,6 @@ const Tab = styled(MuiTab)(({ theme }) => ({
   },
 }));
 
+Tab.defaultProps = { disableRipple: true }
+
 export default Tab;

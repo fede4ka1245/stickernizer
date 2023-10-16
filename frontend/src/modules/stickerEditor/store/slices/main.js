@@ -71,15 +71,15 @@ export const mainSlice = createSlice({
         action.payload.layerName = `${emptyLayerName} (${state.player.getLayers().length + 1})`
       }
       state.player.addLayer(action.payload);
-      state.layers = [...state.player.getLayers().map((layer) => JSON.parse(JSON.stringify(layer)))];
+      state.layers = [...state.player.getLayers().map((layer) => layer.getResolvedLayer())];
     },
     deleteLayer: (state, action) => {
       state.player.deleteLayer(action.payload);
-      state.layers = [...state.player.getLayers().map((layer) => JSON.parse(JSON.stringify(layer)))];
+      state.layers = [...state.player.getLayers().map((layer) => layer.getResolvedLayer())];
     },
     moveLayerToNewOrder: (state, action) => {
       const newLayers = state.player.moveLayerToNewOrder(action.payload.layerOrder, action.payload.newLayerOrder);
-      state.layers = newLayers.map((layer) => JSON.parse(JSON.stringify(layer)));
+      state.layers = newLayers.map((layer) => layer.getResolvedLayer());
     },
     resetMain: (state) => {
       if (state.player) {

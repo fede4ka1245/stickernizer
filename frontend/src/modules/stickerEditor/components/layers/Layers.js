@@ -18,8 +18,6 @@ import {Drawer} from "../../../../ui/drawer/Drawer";
 import Tappable from "../../../../ui/tappable/Tappable";
 import {Close} from "@mui/icons-material";
 import {setLayerType} from "../../store/slices/layer";
-import {layerType} from "../../consts/layerConsts";
-import {appAlert} from "../../../userFeedback";
 
 const Layers = () => {
   const { layers, progress, isPaused } = useSelector((state) => state.main);
@@ -32,11 +30,6 @@ const Layers = () => {
   const dispatch = useDispatch();
 
   const onAddLayer = useCallback(async (type) => {
-    if (type === layerType.video) {
-      await appAlert('This layer type currently not supported!');
-      return;
-    }
-
     dispatch(setLayerType(type))
     dispatch(openTab(tabs.layer));
   }, []);
