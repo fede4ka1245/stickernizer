@@ -63,7 +63,7 @@ const TransformSetter = ({ transformState, setTransformState }) => {
       <Grid mb={'var(--space-md)'}>
         <InputNumber
           step={0.1}
-          min={1}
+          min={0.1}
           value={transformState.scaleX}
           onChange={setScaleX}
           fullWidth
@@ -76,7 +76,7 @@ const TransformSetter = ({ transformState, setTransformState }) => {
           step={0.1}
           value={transformState.scaleY}
           onChange={setScaleY}
-          min={1}
+          min={0.1}
           fullWidth
           type={'outline'}
           label={'Scale Y'}
