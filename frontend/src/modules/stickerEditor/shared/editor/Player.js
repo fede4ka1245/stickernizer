@@ -1,6 +1,7 @@
 import {playerConsts} from "../../consts/playerConsts";
 import { v4 as uuidv4 } from 'uuid';
 import RecordRTC from 'recordrtc';
+import VideoLayer from "./VideoLayer";
 
 export default class Player {
   constructor(canvas) {
@@ -15,18 +16,39 @@ export default class Player {
   }
 
   stop() {
+    for (let layerIndex = this.layers.length - 1; layerIndex >= 0; layerIndex--) {
+      if (this.layers[layerIndex] instanceof VideoLayer) {
+        this.layers[layerIndex].stop(this.videoTiming);
+      }
+    }
+
     this.playing = false;
   }
 
-  play() {
+  async play() {
+    for (let layerIndex = this.layers.length - 1; layerIndex >= 0; layerIndex--) {
+      if (this.layers[layerIndex] instanceof VideoLayer) {
+        await this.layers[layerIndex].play(this.videoTiming);
+      }
+    }
+
     this.playing = true;
   }
 
-  goTo(videoTiming) {
+  async goTo(videoTiming) {
     const context = this.canvas.getContext('2d');
     context.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
     for (let layerIndex = this.layers.length - 1; layerIndex >= 0; layerIndex--) {
+      if (this.layers[layerIndex] instanceof VideoLayer) {
+        this.layers[layerIndex].goTo(videoTiming)
+          .then(() => {
+            for (let layerIndex = this.layers.length - 1; layerIndex >= 0; layerIndex--) {
+              this.layers[layerIndex].render(this.canvas, this.videoTiming);
+            }
+          });
+      }
+
       this.layers[layerIndex].render(this.canvas, this.videoTiming);
     }
 
@@ -34,7 +56,7 @@ export default class Player {
     this.timeStart = this.time - this.videoTiming;
   }
 
-  update(time) {
+  async update(time) {
     this.time = time;
     if (this.playing === false) {
       this.animationId = window.requestAnimationFrame(this.update.bind(this));
@@ -54,7 +76,7 @@ export default class Player {
       if (this.end) {
         this.end();
       }
-      this.goTo(0);
+      await this.goTo(0);
     }
 
     const context = this.canvas.getContext('2d');

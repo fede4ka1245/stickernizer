@@ -11,11 +11,11 @@ const VideoSetter = ({ videoSetterState, setVideoSetterState }) => {
     if (!file) {
       return;
     }
-
-    if (file.size / 1024 / 1024 >= 10) {
-      await appAlert('The file is to large');
-      return;
-    }
+    //
+    // if (file.size / 1024 / 1024 >= 10) {
+    //   await appAlert('The file is to large');
+    //   return;
+    // }
 
     setVideoSetterState({
       ...videoSetterState,
