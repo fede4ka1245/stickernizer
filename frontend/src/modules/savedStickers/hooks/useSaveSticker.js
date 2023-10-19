@@ -1,5 +1,5 @@
 import {useCallback, useState} from "react";
-import {cloudStorageKey, getItem, setItem} from "../shared/cloudStorage";
+import {cloudStorageKey, getItem, setItem} from "../../../shared/cloudStorage";
 
 export const useSaveSticker = () => {
   const [state, setState] = useState({

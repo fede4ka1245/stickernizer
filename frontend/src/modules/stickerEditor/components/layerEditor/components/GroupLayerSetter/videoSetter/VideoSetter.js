@@ -1,7 +1,6 @@
 import React, {useCallback} from 'react';
 import {Grid, Typography} from "@mui/material";
 import InputNumber from "../../../../../../../components/inputNumber/InputNumber";
-import {appAlert} from "../../../../../../userFeedback";
 
 const VideoSetter = ({ videoSetterState, setVideoSetterState }) => {
   const onVideoChange = useCallback(async (event) => {

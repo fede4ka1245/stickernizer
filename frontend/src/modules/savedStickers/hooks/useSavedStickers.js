@@ -1,7 +1,7 @@
 import {useCallback, useEffect, useMemo, useState} from "react";
-import {cloudStorageKey, getItem, setItem} from "../shared/cloudStorage";
-import {removeItem} from "../shared/cloudStorage/removeItem";
-import {appConfirm} from "../modules/userFeedback";
+import {cloudStorageKey, getItem, setItem} from "../../../shared/cloudStorage";
+import {removeItem} from "../../../shared/cloudStorage/removeItem";
+import {appConfirm} from "../../userFeedback";
 
 export const useSavedStickers = () => {
   const [state, setState] = useState({
@@ -13,7 +13,7 @@ export const useSavedStickers = () => {
   });
 
   const getStickers = useCallback(async (limit, page, ids) => {
-    return await Promise.all([...ids.slice(page * limit, limit + 1).map(async (id) => {
+    return await Promise.all([...ids.slice(page * limit, page * limit + limit + 1).map(async (id) => {
       const result = await getItem(id);
 
       return JSON.parse(result);
@@ -71,7 +71,7 @@ export const useSavedStickers = () => {
     }
 
     return state.stickersIds.length === state.stickers.length;
-  }, [state.stickersIds, state.stickersIds, state.stickers]);
+  }, [state.stickersIds, state.isLoading, state.stickers]);
 
   return {
     isLoading: state.isLoading,

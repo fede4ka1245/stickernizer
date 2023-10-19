@@ -1,7 +1,7 @@
 import React, {useCallback} from 'react';
 import {Grid, Typography} from "@mui/material";
 import ButtonBackPanel from "../../components/buttonBackPanel/ButtonBackPanel";
-import {useSavedStickers} from "../../hooks/useSavedStickers";
+import {useSavedStickers} from "./hooks/useSavedStickers";
 import Sticker from "./components/sticker/Sticker";
 import Button from "../../ui/button/Button";
 import {useNavigate} from "react-router-dom";

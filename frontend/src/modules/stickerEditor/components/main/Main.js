@@ -10,7 +10,7 @@ import {
   toggleIsPaused, updateStickerName
 } from "../../store/slices/main";
 import Player from "../player/Player";
-import {useSaveSticker} from "../../../../hooks/useSaveSticker";
+import {useSaveSticker} from "../../../savedStickers/hooks/useSaveSticker";
 import axios from "axios";
 import Input from "../../../../ui/input/Input";
 import {appAlert} from "../../../userFeedback";
