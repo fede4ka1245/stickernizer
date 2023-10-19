@@ -18,9 +18,9 @@ export const useSaveSticker = () => {
         return;
       }
 
-      const ids = JSON.parse((await getItem(cloudStorageKey.savedStickersIds)) || '[]');
+      let ids = JSON.parse((await getItem(cloudStorageKey.savedStickersIds)) || '[]');
       if (!ids.includes(sticker.id)) {
-        ids.push(sticker.id);
+        ids = [sticker.id, ids];
         await setItem(cloudStorageKey.savedStickersIds, JSON.stringify(ids));
       }
     } finally {

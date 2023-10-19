@@ -13,7 +13,7 @@ export const useSavedStickers = () => {
   });
 
   const getStickers = useCallback(async (limit, page, ids) => {
-    return await Promise.all([...ids.slice(page * limit, page * limit + limit + 1).map(async (id) => {
+    return await Promise.all([...ids.slice(page * limit, page * limit + limit).map(async (id) => {
       const result = await getItem(id);
 
       return JSON.parse(result);
@@ -70,7 +70,7 @@ export const useSavedStickers = () => {
       return false;
     }
 
-    return state.stickersIds.length === state.stickers.length;
+    return state.stickersIds.length <= state.stickers.length;
   }, [state.stickersIds, state.isLoading, state.stickers]);
 
   return {
